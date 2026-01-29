@@ -16,7 +16,7 @@
 
     <input type="text" id="fullName" placeholder="اسمك الكامل">
     <input type="number" id="age" placeholder="العمر">
-    <input type="text" id="userID" placeholder="قم بكتابة الهوية الخاصة بك (مثال: CIVID-01828)">
+    <input type="text" id="userID" placeholder="قم بكتابة الهوية الخاصة بك (مثال: 30283619)">
     <input type="text" id="discordUsername" placeholder="اسم المستخدم الخاص بك في Discord">
 
     <select id="profession">
@@ -27,10 +27,9 @@
       <option value="وزارة العدل">منسوبي وزارة العدل</option>
     </select>
 
-    <!-- خيارات الوظائف حسب المهنة -->
     <select id="role" style="display:none;"></select>
 
-    <label for="profilePic" class="upload-label">رفع صورة الهُوية من الماب مع الوجه</label>
+    <label for="profilePic" class="upload-label">رفع صورة الهوية من الماب مع الوجه</label>
     <input type="file" id="profilePic" accept="image/*" onchange="previewImage(event)">
     <img id="preview" src="" alt="معاينة الصورة" style="display:none; width:120px; height:120px; border-radius:12px; margin-bottom:10px;">
 
