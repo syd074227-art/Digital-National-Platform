@@ -77,7 +77,7 @@ function submitRequest(){
             profession: profession,
             role: role || "مواطن",
             profilePic: picData,
-            status: "pending" // قيد الانتظار للموافقة
+            status: "pending" // الطلب ينتظر تفعيل الإدارة
         };
 
         requests.push(request);
