@@ -3,39 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>لوحة تحكم Owner</title>
+<title>لوحة الإدارة</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="login-container">
-  <div class="admin-box">
-    <div class="logo">🏛️ لوحة تحكم Owner</div>
-    <h2>إنشاء هوية جديدة</h2>
+  <div class="dashboard-box">
+    <h2 id="welcome">مرحبا، المسؤول</h2>
 
-    <div class="input-group">
-      <span class="icon">🏷️</span>
-      <select id="type">
-        <option value="CIVID">مواطن</option>
-        <option value="MOAid">وزارة الداخلية</option>
-        <option value="MOHID">وزارة الصحة</option>
-        <option value="DOJID">وزارة العدل</option>
-      </select>
+    <div class="info-group">
+      <p><strong>الهوية:</strong> <span id="userID"></span></p>
+      <p><strong>الدور:</strong> <span id="userRole"></span></p>
     </div>
 
-    <div class="input-group">
-      <span class="icon">🔢</span>
-      <input id="number" type="number" placeholder="رقم الهوية">
+    <div class="services">
+      <h3>جميع المستخدمين:</h3>
+      <ul id="usersList"></ul>
     </div>
 
-    <div class="input-group">
-      <span class="icon">🔒</span>
-      <input id="password" type="text" placeholder="كلمة المرور للهوية">
-    </div>
-
-    <button onclick="createID()">إنشاء الهوية</button>
-    <p id="msg" class="error-msg"></p>
+    <button onclick="logout()">تسجيل الخروج</button>
   </div>
 </div>
 
