@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تفعيل الهوية</title>
+<title>تفعيل الطلب - الحكومة الرقمية KR</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,12 +11,12 @@
 
 <div class="register-container">
   <div class="register-card">
-    <h1 class="register-title">تفعيل الهوية</h1>
+    <h1 class="register-title">تقديم طلب تفعيل</h1>
     <p class="register-subtitle">يرجى تعبئة معلوماتك ورفع صورة الهوية من الماب</p>
 
     <input type="text" id="fullName" placeholder="اسمك الكامل">
     <input type="number" id="age" placeholder="العمر">
-    <input type="text" id="userID" placeholder="قم بكتابة الهوية الخاصة بك (مثال: 30283619)">
+    <input type="text" id="userID" placeholder="قم بكتابة الهُوية الخاصة بك (مثال: 30283619)">
     <input type="text" id="discordUsername" placeholder="اسم المستخدم الخاص بك في Discord">
 
     <select id="profession">
@@ -29,14 +29,13 @@
 
     <select id="role" style="display:none;"></select>
 
-    <label for="profilePic" class="upload-label">رفع صورة الهوية من الماب مع الوجه</label>
+    <label for="profilePic" class="upload-label">رفع صورة الهُوية من الماب مع الوجه</label>
     <input type="file" id="profilePic" accept="image/*" onchange="previewImage(event)">
     <img id="preview" src="" alt="معاينة الصورة" style="display:none; width:120px; height:120px; border-radius:12px; margin-bottom:10px;">
 
-    <button onclick="submitRequest()">طلب تفعيل الهوية</button>
+    <button onclick="submitRequest()">طلب التفعيل</button>
 
     <p id="err" class="error-msg"></p>
-    <p id="success" class="success-msg"></p>
   </div>
 </div>
 
