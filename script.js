@@ -83,3 +83,13 @@ function submitRequest() {
 
   reader.readAsDataURL(pic);
 }
+function demoLogin(){
+    localStorage.setItem("currentUser", JSON.stringify({
+        id: "30283619",
+        name: "Owner",
+        profession: "Admin",
+        role: "Admin-2",
+        status: "approved"
+    }));
+    window.location.href = "main.html";
+}
