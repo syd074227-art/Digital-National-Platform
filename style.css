@@ -1,7 +1,7 @@
 body {
   background: #0B0C10;
   color: #FFF;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .header-kr {
@@ -12,10 +12,10 @@ body {
 
 .header-kr h1 {
   color: #00BFFF;
-  font-size: 2.8rem;
+  font-size: 3rem;
   font-weight: bold;
-  letter-spacing: 2px;
-  text-shadow: 0 0 15px rgba(0, 191, 255, 0.7);
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px rgba(0,191,255,0.7);
   animation: pulse 1.5s infinite;
 }
 
@@ -26,45 +26,57 @@ body {
 }
 
 .form-container {
-  max-width: 550px;
+  max-width: 600px;
   margin: 0 auto;
-  background: #1F2833;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,191,255,0.3);
+  background: linear-gradient(145deg, #1B1F2A, #13161F);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,191,255,0.4);
 }
 
 .form-container label {
   display: block;
-  margin-top: 12px;
+  margin-top: 15px;
   font-weight: bold;
 }
 
 .form-container input, select {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 5px;
   margin-bottom: 15px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
   font-size: 1rem;
+  background: linear-gradient(145deg, #0ff, #00bfff);
+  color: #000;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 10px #00BFFF, 0 0 20px #0ff inset;
 }
 
 select option {
-  padding: 8px;
+  background: #0B0C10;
+  color: #0ff;
+  font-weight: bold;
+  padding: 5px;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 15px #00ffff, 0 0 25px #0ff inset;
 }
 
 button {
-  margin-top: 15px;
+  margin-top: 20px;
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   background: #00BFFF;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -75,29 +87,29 @@ button:hover {
 
 .id-preview {
   text-align: center;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .id-preview img {
   max-width: 100%;
   border: 2px solid #00BFFF;
-  border-radius: 6px;
-  margin-top: 5px;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
 .example-text {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #aaa;
   margin-bottom: 5px;
 }
 
 #error-msg {
   color: #FF3B3B;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: bold;
   text-align: center;
   animation: pulseMsg 1s infinite;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 @keyframes pulseMsg {
