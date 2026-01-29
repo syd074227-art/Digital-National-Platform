@@ -12,10 +12,11 @@
 <div class="register-container">
   <div class="register-card">
     <h1 class="register-title">تفعيل الهوية</h1>
-    <p class="register-subtitle">يرجى تعبئة معلوماتك ورفع صورة الهوية</p>
+    <p class="register-subtitle">يرجى تعبئة معلوماتك ورفع صورة الهوية من الماب</p>
 
     <input type="text" id="fullName" placeholder="اسمك الكامل">
     <input type="number" id="age" placeholder="العمر">
+    <input type="text" id="userID" placeholder="قم بكتابة الهوية الخاصة بك (مثال: CIVID-01828)">
 
     <select id="profession">
       <option value="">اختر المهنة</option>
@@ -27,8 +28,9 @@
 
     <select id="role" style="display:none;"></select>
 
-    <label for="profilePic" class="upload-label">رفع صورة الهوية (وجه حقيقي)</label>
-    <input type="file" id="profilePic" accept="image/*">
+    <label for="profilePic" class="upload-label">رفع صورة الهُوية من الماب مع الوجه</label>
+    <input type="file" id="profilePic" accept="image/*" onchange="previewImage(event)">
+    <img id="preview" src="" alt="معاينة الصورة" style="display:none; width:120px; height:120px; border-radius:12px; margin-bottom:10px;">
 
     <button onclick="submitRequest()">طلب تفعيل الهوية</button>
 
