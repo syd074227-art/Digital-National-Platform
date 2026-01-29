@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>الهيئة الرقمية KR - تفعيل الهوية</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -24,8 +25,8 @@
   <label>اسمك في Discord:</label>
   <input type="text" id="discord" placeholder="أدخل Discord">
 
-  <label>رقم الهوية في الماب:</label>
-  <input type="text" id="mapId" placeholder="مثال: [39193738]">
+  <label>رقم الهوية في اللعبة:</label>
+  <input type="text" id="mapId" placeholder="يرجى كتابة الهوية في اللعبة مثال : [39193738]">
 
   <label>الوزارة:</label>
   <select id="job">
@@ -35,14 +36,14 @@
     <option value="وزارة العدل">وزارة العدل</option>
   </select>
 
-  <label>اختر المنصب الرئيسي:</label>
+  <label>اختر المنصب الرئيسي (رتب فقط):</label>
   <select id="jobDetails" class="hidden">
     <option value="">اختر المنصب</option>
   </select>
 
-  <label>في حال لديك أكثر من منصب:</label>
-  <select id="extraJobDetails" class="hidden">
-    <option value="none">لا يوجد</option>
+  <label>المناصب الإدارية (يمكن اختيار أكثر من منصب):</label>
+  <select id="extraJobDetails" class="hidden" multiple size="5">
+    <!-- الخيارات الإدارية تضاف بالـ JS حسب الوزارة -->
   </select>
 
   <label>رفع صورة الهوية مع الوجه:</label>
@@ -50,7 +51,7 @@
 
   <!-- مثال الصورة -->
   <div class="id-preview">
-    <p class="example-text">يرجى كتابة الهوية في اللعبة مثال : [39193738]</p>
+    <p class="example-text">مثال على الهوية المطلوبة مع الوجه</p>
     <img id="idExample" src="https://image2url.com/r2/default/images/1769695282320-2ade9dfa-ea7d-4f34-b1f5-81fd757f4464.jpeg" alt="مثال الهوية">
   </div>
 
