@@ -13,9 +13,9 @@ body {
   justify-content: center;
 }
 
-.login-box {
+.login-box, .dashboard-box {
   background: #ffffff;
-  width: 380px;
+  width: 420px;
   padding: 45px;
   border-radius: 18px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.35);
@@ -50,7 +50,7 @@ body {
   box-shadow: 0 0 6px rgba(30,58,138,0.4);
 }
 
-.login-box button {
+.login-box button, .dashboard-box button {
   width: 100%;
   padding: 14px;
   background: #1e3a8a;
@@ -63,15 +63,45 @@ body {
   transition: 0.3s;
 }
 
-.login-box button:hover {
+.login-box button:hover, .dashboard-box button:hover {
   background: #0f172a;
+}
+
+/* ===== Error Message ===== */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .error-msg {
   display: none;
   margin-top: 15px;
-  color: #b91c1c; /* أحمر رسمي */
+  color: #b91c1c;
   font-size: 14px;
   font-weight: 600;
   animation: pulse 0.8s ease-in-out infinite;
+}
+
+.info-group {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #0f172a;
+}
+
+.services {
+  margin-top: 25px;
+  text-align: right;
+}
+
+.services h3 {
+  color: #1e3a8a;
+}
+
+.services ul {
+  list-style: square;
+  padding-right: 20px;
+  color: #1e3a8a;
 }
