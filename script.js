@@ -1,81 +1,73 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
-// إنشاء حساب Owner تلقائيًا
+// إنشاء Owner
 if (!users.find(u => u.id === "Owner")) {
   users.push({ id: "Owner", pass: "050910", role: "Owner" });
   localStorage.setItem("users", JSON.stringify(users));
 }
 
+// تسجيل الدخول
 function login() {
   const id = document.getElementById("id").value.trim();
   const pass = document.getElementById("pass").value.trim();
   const err = document.getElementById("err");
 
-  users = JSON.parse(localStorage.getItem("users")) || [];
   const user = users.find(u => u.id === id && u.pass === pass);
 
   if (!user) {
     err.style.display = "block";
     err.innerHTML =
       "الهوية أو كلمة المرور غير صحيحة.<br>يرجى التواصل مع إدارة السيرفر لإنشاء الهوية.";
-    setTimeout(() => { err.style.display = "none"; }, 3000);
+    setTimeout(() => err.style.display = "none", 3000);
     return;
   }
 
   localStorage.setItem("currentUser", JSON.stringify(user));
-
-  if (user.role === "Owner" || user.role === "Admin-2") {
-    window.location.href = "admin.html";
-  } else {
-    window.location.href = "dashboard.html";
-  }
+  window.location.href = "dashboard.html";
 }
 
-// ===============================
-// Dashboard / Admin Panel
-// ===============================
+// تحميل الصفحة الرئيسية
 function loadDashboard() {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser) { window.location.href = "index.html"; return; }
-
-  let displayID = currentUser.id;
-  if (["Admin-1","Admin-2"].includes(currentUser.role)) {
-    displayID += " - " + currentUser.role;
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (!user) {
+    window.location.href = "index.html";
+    return;
   }
 
-  if (document.getElementById("welcome")) {
-    document.getElementById("welcome").innerText = "مرحبا، " + displayID;
-    document.getElementById("userID").innerText = displayID;
-    document.getElementById("userRole").innerText = currentUser.role;
-  }
+  document.getElementById("welcome").innerText = "مرحبا، " + user.id;
+  document.getElementById("userRole").innerText = user.role;
 
-  if (document.getElementById("servicesList")) {
-    const servicesList = document.getElementById("servicesList");
-    let services = [];
+  const services = {
+    "CIVID": ["الخدمات العامة"],
+    "MOAid": ["خدمات وزارة الداخلية"],
+    "MOHID": ["خدمات وزارة الصحة"],
+    "DOJID": ["خدمات وزارة العدل"],
+    "Admin-1": ["إدارة محدودة"],
+    "Admin-2": ["إدارة كاملة", "عرض المستخدمين"],
+    "Owner": ["التحكم الكامل بالنظام"]
+  };
 
-    switch (currentUser.role) {
-      case "CIVID": services = ["الخدمات العامة","الاستعلامات"]; break;
-      case "MOAid": services = ["خدمات وزارة الداخلية"]; break;
-      case "MOHID": services = ["خدمات وزارة الصحة"]; break;
-      case "DOJID": services = ["خدمات وزارة العدل"]; break;
-      case "Admin-1": services = ["إدارة بعض الهويات","عرض موظفين محددين"]; break;
-      case "Admin-2": services = ["إدارة كل الهويات","عرض جميع الموظفين","الوصول لكل الخدمات"]; break;
-      case "Owner": services = ["إدارة كل الهويات","التحكم الكامل بالنظام"]; break;
-    }
-
-    servicesList.innerHTML = services.map(s => `<li>${s}</li>`).join("");
-  }
-
-  // Admin-2 + Owner: عرض جميع المستخدمين في لوحة الإدارة
-  if (document.getElementById("usersList")) {
-    const list = document.getElementById("usersList");
-    list.innerHTML = users.map(u => `<li>${u.id} - ${u.role}</li>`).join("");
-  }
+  const cards = document.getElementById("servicesCards");
+  cards.innerHTML = services[user.role]
+    .map(s => `<div class="card">${s}</div>`)
+    .join("");
 }
 
-loadDashboard();
+function showSection(id) {
+  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
+  document.getElementById(id).style.display = "block";
+}
+
+function toggleSettings() {
+  const s = document.getElementById("settingsSection");
+  s.style.display = s.style.display === "block" ? "none" : "block";
+}
 
 function logout() {
   localStorage.removeItem("currentUser");
   window.location.href = "index.html";
+}
+
+if (document.getElementById("servicesCards")) {
+  loadDashboard();
 }
