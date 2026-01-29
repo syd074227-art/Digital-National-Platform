@@ -55,6 +55,11 @@ body {
   box-shadow: 0 0 10px #00BFFF, 0 0 20px #0ff inset;
 }
 
+select[multiple] {
+  background: linear-gradient(145deg, #ff00ff, #ff69b4);
+  color: #000;
+}
+
 select option {
   background: #0B0C10;
   color: #0ff;
