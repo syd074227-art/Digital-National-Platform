@@ -1,6 +1,6 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
-// إنشاء Owner
+// إنشاء Owner إذا ما موجود
 if (!users.find(u => u.id === "Owner")) {
   users.push({ id: "Owner", pass: "050910", role: "Owner" });
   localStorage.setItem("users", JSON.stringify(users));
@@ -26,48 +26,61 @@ function login() {
   window.location.href = "dashboard.html";
 }
 
-// تحميل الصفحة الرئيسية
+// ===============================
+// تحميل Dashboard فقط لو العنصر موجود
+// ===============================
 function loadDashboard() {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
-  if (!user) {
-    window.location.href = "index.html";
-    return;
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) { window.location.href = "index.html"; return; }
+
+  const welcome = document.getElementById("welcome");
+  if (welcome) welcome.innerText = "مرحبا، " + currentUser.id;
+
+  const userRoleEl = document.getElementById("userRole");
+  if (userRoleEl) userRoleEl.innerText = currentUser.role;
+
+  // إظهار الإعدادات فقط للمدراء
+  if(["Admin-2","Owner"].includes(currentUser.role)){
+    document.querySelectorAll(".adminOnly").forEach(el => el.style.display="block");
   }
 
-  document.getElementById("welcome").innerText = "مرحبا، " + user.id;
-  document.getElementById("userRole").innerText = user.role;
-
-  const services = {
-    "CIVID": ["الخدمات العامة"],
-    "MOAid": ["خدمات وزارة الداخلية"],
-    "MOHID": ["خدمات وزارة الصحة"],
-    "DOJID": ["خدمات وزارة العدل"],
-    "Admin-1": ["إدارة محدودة"],
-    "Admin-2": ["إدارة كاملة", "عرض المستخدمين"],
-    "Owner": ["التحكم الكامل بالنظام"]
-  };
-
-  const cards = document.getElementById("servicesCards");
-  cards.innerHTML = services[user.role]
-    .map(s => `<div class="card">${s}</div>`)
-    .join("");
+  const cardsContainer = document.getElementById("servicesCards");
+  if(cardsContainer){
+    const services = {
+      "CIVID": ["الخدمات العامة"],
+      "MOAid": ["خدمات وزارة الداخلية"],
+      "MOHID": ["خدمات وزارة الصحة"],
+      "DOJID": ["خدمات وزارة العدل"],
+      "Admin-1": ["إدارة محدودة"],
+      "Admin-2": ["إدارة كاملة","عرض المستخدمين"],
+      "Owner": ["التحكم الكامل بالنظام"]
+    };
+    cardsContainer.innerHTML = (services[currentUser.role] || []).map(s => `<div class="card">${s}</div>`).join("");
+  }
 }
 
-function showSection(id) {
-  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-  document.getElementById(id).style.display = "block";
+// عرض أي قسم
+function showSection(id){
+  document.querySelectorAll(".section").forEach(s => s.style.display="none");
+  const sec = document.getElementById(id);
+  if(sec) sec.style.display="block";
 }
 
-function toggleSettings() {
-  const s = document.getElementById("settingsSection");
-  s.style.display = s.style.display === "block" ? "none" : "block";
+// إعدادات منبثقة
+function toggleSettings(){
+  const sec = document.getElementById("settingsSection");
+  if(sec) sec.style.display = (sec.style.display==="block") ? "none" : "block";
 }
 
-function logout() {
+// تسجيل الخروج
+function logout(){
   localStorage.removeItem("currentUser");
   window.location.href = "index.html";
 }
 
-if (document.getElementById("servicesCards")) {
+// ===============================
+// نفذ Dashboard فقط لو الصفحة تحتوي البطاقة
+// ===============================
+if(document.getElementById("servicesCards")){
   loadDashboard();
 }
