@@ -3,25 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بوابة الخدمات الحكومية</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<title>بوابة الحكومة - تسجيل الدخول</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="login-container">
   <div class="login-box">
-    <h1 class="system-title">بوابة الخدمات الحكومية</h1>
-    <p class="system-subtitle">نظام الدخول الموحد</p>
-
-    <input id="id" placeholder="الهوية">
+    <h2>تسجيل الدخول</h2>
+    <p class="subtitle">أدخل بياناتك للمتابعة</p>
+    
+    <input id="id" type="text" placeholder="الهوية">
     <input id="pass" type="password" placeholder="كلمة المرور">
-
-    <button onclick="login()">تسجيل الدخول</button>
+    
+    <button onclick="login()">دخول</button>
+    
     <p id="err" class="error-msg"></p>
   </div>
 </div>
 
+<script src="users.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
