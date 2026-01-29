@@ -14,7 +14,7 @@ function previewImage(event){
     }
 }
 
-// تحديث قائمة الوظائف حسب المهنة
+// تحديث الوظائف حسب المهنة
 const professionSelect = document.getElementById("profession");
 const roleSelect = document.getElementById("role");
 
@@ -45,7 +45,7 @@ professionSelect.addEventListener("change", function(){
     }
 });
 
-// إرسال طلب تفعيل الهوية (ينتظر الإدارة)
+// إرسال طلب التفعيل → ينقل لصفحة تأكيد
 function submitRequest(){
     const fullName = document.getElementById("fullName").value.trim();
     const age = document.getElementById("age").value.trim();
@@ -55,9 +55,7 @@ function submitRequest(){
     const role = roleSelect.value;
     const picInput = document.getElementById("profilePic");
     const err = document.getElementById("err");
-    const success = document.getElementById("success");
 
-    // التحقق من تعبئة كل الحقول
     if(!fullName || !age || !userID || !discordUsername || !profession || (roleSelect.style.display !== "none" && !role) || picInput.files.length === 0){
         err.style.display = "block";
         err.innerText = "يرجى تعبئة كل المعلومات المطلوبة ورفع الصورة.";
@@ -77,26 +75,14 @@ function submitRequest(){
             profession: profession,
             role: role || "مواطن",
             profilePic: picData,
-            status: "pending" // الطلب ينتظر تفعيل الإدارة
+            status: "pending"
         };
 
         requests.push(request);
         localStorage.setItem("requests", JSON.stringify(requests));
 
-        success.style.display = "block";
-        success.innerText = "تم إرسال طلب تفعيل الهوية! يرجى انتظار موافقة الإدارة.";
-        setTimeout(()=>success.style.display="none",5000);
-
-        // إعادة ضبط النموذج
-        document.getElementById("fullName").value="";
-        document.getElementById("age").value="";
-        document.getElementById("userID").value="";
-        document.getElementById("discordUsername").value="";
-        professionSelect.value="";
-        roleSelect.style.display="none";
-        roleSelect.innerHTML="";
-        picInput.value="";
-        document.getElementById("preview").style.display="none";
+        // الانتقال لصفحة التأكيد
+        window.location.href = "confirmation.html";
     }
     reader.readAsDataURL(picInput.files[0]);
 }
