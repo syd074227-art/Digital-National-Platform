@@ -11,13 +11,20 @@ body {
   min-height: 100vh;
 }
 
-/* شعار KR الرقمي */
-.kr-logo {
+.kr-title {
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
   color: rgba(255,255,255,0.3);
   animation: pulse 2s infinite;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+}
+
+.kr-subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: #00ffff;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #00ffff;
 }
 
 @keyframes pulse {
@@ -26,7 +33,6 @@ body {
   100% { opacity: 0.3; }
 }
 
-/* صندوق تسجيل الدخول */
 .login-box {
   background: rgba(20,20,20,0.9);
   padding: 30px;
@@ -38,16 +44,6 @@ body {
   gap: 12px;
 }
 
-/* عنوان الصندوق */
-.login-box h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
-}
-
-/* الخانات */
 .login-box input, .login-box select {
   width: 100%;
   padding: 12px;
@@ -65,12 +61,10 @@ body {
   box-shadow: 0 0 20px #00ffff;
 }
 
-/* ألوان كل وزارة عند اختيار الوظيفة */
 #job option[value="وزارة الداخلية"] { background: #1e3a8a; color: #fff; }
 #job option[value="وزارة الصحة"] { background: #b91c1c; color: #fff; }
 #job option[value="وزارة العدل"] { background: #15803d; color: #fff; }
 
-/* الأزرار */
 .login-box button {
   padding: 14px;
   border-radius: 12px;
@@ -87,9 +81,18 @@ body {
   box-shadow: 0 0 15px #00ffff;
 }
 
+.pulse {
+  animation: pulseBtn 1.5s infinite;
+}
+
+@keyframes pulseBtn {
+  0% { box-shadow: 0 0 15px #00ffff; }
+  50% { box-shadow: 0 0 25px #00ffff; transform: scale(1.02); }
+  100% { box-shadow: 0 0 15px #00ffff; transform: scale(1); }
+}
+
 #submitBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 25px #00ffff;
 }
 
 button.demo {
@@ -103,7 +106,30 @@ button.demo:hover {
   box-shadow: 0 0 20px #6b7280;
 }
 
-/* إخفاء الخيارات الفرعية */
-.hidden {
-  display: none;
+.hidden { display: none; }
+
+.id-preview {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.id-preview img {
+  width: 150px;
+  border-radius: 12px;
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}
+
+#error-msg {
+  color: #ff3860;
+  font-weight: bold;
+  text-align: center;
+  animation: pulseError 0.5s infinite;
+  margin-top: 8px;
+}
+
+@keyframes pulseError {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
