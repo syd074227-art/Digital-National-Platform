@@ -4,50 +4,52 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>هيئة KR الرقمية</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<div class="login-container">
 
-  <h1 class="title">الهيئة الرقمية KR</h1>
+  <h1 class="kr-logo">هيئة KR الرقمية</h1>
 
-  <!-- القسم: تفعيل الهوية -->
-  <section class="step">
-    <h2>اختر الوظيفة</h2>
-    <div class="cards" id="roleCards">
-      <div class="card" data-role="citizen">مواطن</div>
-      <div class="card" data-role="interior">منسوب وزارة الداخلية</div>
-      <div class="card" data-role="health">منسوب وزارة الصحة</div>
-      <div class="card" data-role="justice">منسوب وزارة العدل</div>
-    </div>
-  </section>
+  <div class="login-box">
+    <h2>تسجيل الدخول</h2>
 
-  <!-- المنصب الرئيسي -->
-  <section class="step hidden" id="rankStep">
-    <h2>اختر المنصب الرئيسي</h2>
-    <div class="cards" id="rankCards"></div>
-  </section>
+    <!-- الاسم الكامل -->
+    <input type="text" id="fullName" placeholder="اسمك الكامل">
 
-  <!-- المناصب الإدارية -->
-  <section class="step hidden" id="adminStep">
-    <h2>المناصب الإدارية (اختيارات متعددة)</h2>
-    <div class="cards multi" id="adminCards"></div>
-  </section>
+    <!-- العمر -->
+    <input type="number" id="age" placeholder="العمر">
 
-  <!-- رفع صورة الهوية -->
-  <section class="step hidden" id="idUploadStep">
-    <h2>رفع صورة الهوية مع الوجه</h2>
+    <!-- المهنة -->
+    <select id="job">
+      <option value="">اختر مهنتك</option>
+      <option value="مواطن">مواطن</option>
+      <option value="وزارة الداخلية">منسوبي وزارة الداخلية</option>
+      <option value="وزارة الصحة">منسوبي وزارة الصحة</option>
+      <option value="وزارة العدل">منسوبي وزارة العدل</option>
+    </select>
+
+    <!-- خيارات كل وزارة -->
+    <select id="jobDetails" class="hidden">
+      <option value="">اختر الوظيفة</option>
+    </select>
+
+    <!-- Discord -->
+    <input type="text" id="discord" placeholder="اسمك في Discord">
+
+    <!-- رقم الهوية في الماب -->
+    <input type="text" id="mapId" placeholder="رقم هويتك في الماب">
+
+    <!-- رفع صورة الهوية -->
     <input type="file" id="idImage" accept="image/*">
-    <div class="id-preview">
-      <p class="example-text">يرجى رفع الهوية مع الوجه مثال : </p>
-      <img src="https://image2url.com/r2/default/images/1769695282320-2ade9dfa-ea7d-4f34-b1f5-81fd757f4464.jpeg" alt="مثال الهوية" />
-    </div>
-    <div id="message" class="hidden"></div>
-    <button id="submitBtn">طلب تفعيل الهوية</button>
-  </section>
 
+    <!-- زر طلب تفعيل الهوية -->
+    <button id="submitBtn">طلب تفعيل الهوية</button>
+
+    <!-- تسجيل الدخول التجريبي -->
+    <button id="demoBtn" class="demo">دخول تجريبي</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
