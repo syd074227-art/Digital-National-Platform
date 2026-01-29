@@ -63,14 +63,21 @@ body {
 }
 
 .card {
-  background: #fff;
   padding: 15px;
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
+  color: #fff;
+  font-weight: 600;
 }
+
+/* ألوان حسب الوزارة */
+#col1 .card { background: #2563eb; } /* وزارة الداخلية - أزرق */
+#col2 .card { background: #16a34a; } /* وزارة الصحة - أخضر */
+#col3 .card { background: #ef4444; } /* وزارة العدل - أحمر */
+
 .card:hover { transform: translateY(-3px); box-shadow:0 10px 25px rgba(0,0,0,0.25); }
 
 /* Settings Dropdown */
