@@ -11,29 +11,60 @@
 <!-- الشريط العلوي -->
 <header class="top-bar">
   <div class="user-box">
-    <img id="userImage" src="">
-    <span id="userName"></span>
+    <img id="userImage" src="" alt="user">
+    <span id="userName">اسم المستخدم</span>
   </div>
-  <div class="settings">الإعدادات</div>
+  <div class="settings" onclick="toggleSettings()">الإعدادات</div>
 </header>
+
+<!-- قائمة الإعدادات -->
+<div id="settingsMenu" class="settings-menu hidden">
+  <button>المظهر</button>
+  <button>اللغة</button>
+  <button>طلب تغيير الهوية</button>
+</div>
 
 <!-- البحث -->
 <section class="search-box">
-  <input placeholder="ابحث عن خدمة">
+  <input id="searchInput" placeholder="ابحث عن خدمة" oninput="searchServices()">
 </section>
 
-<!-- المحتوى الرئيسي -->
-<main class="content">
-  <div class="service-card">وزارة الداخلية</div>
-  <div class="service-card">وزارة الصحة</div>
-  <div class="service-card">وزارة العدل</div>
+<!-- خدمات الوزارات (مخفية افتراضيًا) -->
+<main class="content hidden" id="servicesContainer">
+  <div class="service-card interior" onclick="toggleSub('interiorSub')">وزارة الداخلية</div>
+  <div class="sub-services hidden" id="interiorSub">
+    <div>رفع بلاغ</div>
+    <div>تصريح حمل سلاح</div>
+    <div>وظائف</div>
+    <div>المطلوبين</div>
+    <div>رفع شكوى</div>
+  </div>
+
+  <div class="service-card health" onclick="toggleSub('healthSub')">وزارة الصحة</div>
+  <div class="sub-services hidden" id="healthSub">
+    <div>حجز موعد</div>
+    <div>الكشف الطبي</div>
+    <div>طلب مراجعة التقديم</div>
+    <div>رفع شكوى</div>
+    <div>التقديم على الوزاره</div>
+    <div>موقع الوزاره</div>
+  </div>
+
+  <div class="service-card justice" onclick="toggleSub('justiceSub')">وزارة العدل</div>
+  <div class="sub-services hidden" id="justiceSub">
+    <div>رفع قضيه</div>
+    <div>طلب محامي</div>
+    <div>موقع الوزاره</div>
+    <div>التقديم</div>
+    <div>طلب ازالة السوابق</div>
+  </div>
 </main>
 
 <!-- الشريط السفلي -->
 <nav class="bottom-nav">
   <button>KR</button>
   <button>الإعلام</button>
-  <button>الخدمات</button>
+  <button onclick="toggleServices()">الخدمات</button>
   <button>الرسائل</button>
   <button>معلوماتي</button>
 </nav>
