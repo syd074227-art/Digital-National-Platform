@@ -45,7 +45,7 @@ professionSelect.addEventListener("change", function(){
     }
 });
 
-// إرسال طلب التفعيل → ينقل لصفحة تأكيد
+// إرسال طلب التفعيل → الانتقال لصفحة التأكيد
 function submitRequest(){
     const fullName = document.getElementById("fullName").value.trim();
     const age = document.getElementById("age").value.trim();
@@ -63,6 +63,7 @@ function submitRequest(){
         return;
     }
 
+    const file = picInput.files[0];
     const reader = new FileReader();
     reader.onload = function(){
         const picData = reader.result;
@@ -81,8 +82,8 @@ function submitRequest(){
         requests.push(request);
         localStorage.setItem("requests", JSON.stringify(requests));
 
-        // الانتقال لصفحة التأكيد
+        // الانتقال لصفحة التأكيد بعد حفظ البيانات
         window.location.href = "confirmation.html";
     }
-    reader.readAsDataURL(picInput.files[0]);
+    reader.readAsDataURL(file);
 }
