@@ -16,7 +16,7 @@ function login() {
 
   if (!user) {
     err.style.display = "block";
-    err.innerHTML = "الهوية أو كلمة المرور غير صحيحة.<br>يرجى التواصل مع إدارة السيرفر لإنشاء الهوية.";
+    err.innerText = "الهوية أو كلمة المرور غير صحيحة. يرجى التواصل مع إدارة السيرفر لإنشاء الهوية.";
     setTimeout(() => err.style.display="none", 3000);
     return;
   }
@@ -33,22 +33,21 @@ function loadDashboard(){
   document.getElementById("welcome").innerText = "مرحبا، " + user.id;
   document.getElementById("userRole").innerText = user.role;
 
-  // إظهار الإعدادات للمدراء
   if(["Admin-2","Owner"].includes(user.role)){
     document.querySelectorAll(".adminOnly").forEach(el=>el.style.display="block");
   }
 
-  // توزيع الخدمات على الأعمدة الثلاثة
   const services = {
-    "CIVID":["الخدمات العامة"],
-    "MOAid":["خدمات وزارة الداخلية"],
-    "MOHID":["خدمات وزارة الصحة"],
-    "DOJID":["خدمات وزارة العدل"],
-    "Admin-1":["إدارة محدودة"],
-    "Admin-2":["إدارة كاملة","عرض المستخدمين"],
-    "Owner":["التحكم الكامل بالنظام"]
+    "CIVID": ["خدمة عامة 1", "خدمة عامة 2"],
+    "MOAid": ["خدمة وزارة الداخلية 1", "خدمة وزارة الداخلية 2"],
+    "MOHID": ["خدمة وزارة الصحة 1", "خدمة وزارة الصحة 2"],
+    "DOJID": ["خدمة وزارة العدل 1", "خدمة وزارة العدل 2"],
+    "Admin-1": ["إدارة محدودة"],
+    "Admin-2": ["إدارة كاملة", "عرض المستخدمين"],
+    "Owner": ["التحكم الكامل بالنظام"]
   };
 
+  // توزيع الخدمات على الأعمدة حسب الوزارة
   const col1 = document.getElementById("servicesCol1");
   const col2 = document.getElementById("servicesCol2");
   const col3 = document.getElementById("servicesCol3");
@@ -58,11 +57,12 @@ function loadDashboard(){
     col2.innerHTML = "";
     col3.innerHTML = "";
 
-    (services[user.role] || []).forEach((s,i)=>{
-      if(i===0) col1.innerHTML += `<div class="card">${s}</div>`;
-      else if(i===1) col2.innerHTML += `<div class="card">${s}</div>`;
-      else col3.innerHTML += `<div class="card">${s}</div>`;
-    });
+    // وزارة الداخلية
+    (services["MOAid"] || []).forEach(s => col1.innerHTML += `<div class="card">${s}</div>`);
+    // وزارة الصحة
+    (services["MOHID"] || []).forEach(s => col2.innerHTML += `<div class="card">${s}</div>`);
+    // وزارة العدل
+    (services["DOJID"] || []).forEach(s => col3.innerHTML += `<div class="card">${s}</div>`);
   }
 }
 
@@ -82,5 +82,5 @@ function logout(){
   window.location.href="index.html";
 }
 
-// نفذ Dashboard فقط لو الصفحة تحتوي servicesCol1
+// نفذ Dashboard فقط لو الصفحة تحتوي الأعمدة
 if(document.getElementById("servicesCol1")) loadDashboard();
