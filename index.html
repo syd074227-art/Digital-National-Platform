@@ -26,10 +26,10 @@
   <input type="text" id="discord" placeholder="أدخل Discord">
 
   <label>رقم الهوية في اللعبة:</label>
-  <input type="text" id="mapId" placeholder="مثال : [39193738]">
+  <input type="text" id="mapId" placeholder="يرجى كتابة الهوية في اللعبة مثال : [39193738]">
 
   <label>الوزارة:</label>
-  <select id="job">
+  <select id="job" class="digital-select">
     <option value="">اختر الوزارة</option>
     <option value="وزارة الداخلية">وزارة الداخلية</option>
     <option value="وزارة الصحة">وزارة الصحة</option>
@@ -37,12 +37,12 @@
   </select>
 
   <label>اختر المنصب الرئيسي (رتب فقط - اختيار واحد):</label>
-  <select id="jobDetails" class="hidden">
+  <select id="jobDetails" class="digital-select hidden">
     <option value="">اختر المنصب</option>
   </select>
 
   <label>المناصب الإدارية (يمكن اختيار أكثر من منصب):</label>
-  <select id="extraJobDetails" class="hidden" multiple size="5">
+  <select id="extraJobDetails" class="digital-select hidden" multiple size="5">
     <!-- الخيارات الإدارية تضاف هنا حسب الوزارة -->
   </select>
 
