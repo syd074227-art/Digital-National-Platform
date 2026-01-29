@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>لوحة الخدمات الحكومية</title>
+<title>لوحة التحكم الحكومية</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -15,55 +15,49 @@
   <div class="sidebar">
     <h2>القائمة</h2>
     <ul>
-      <li onclick="showSection('home')">الرئيسية</li>
-      <li onclick="showSection('services')">الخدمات</li>
+      <li onclick="scrollToSection('dashboard')">الرئيسية</li>
+      <li onclick="scrollToSection('services')">الخدمات</li>
       <li class="adminOnly" onclick="toggleSettings()">الإعدادات</li>
     </ul>
   </div>
 
   <!-- Main Content -->
   <div class="main-content">
+
+    <!-- Header -->
     <div class="header">
       <h1 id="welcome"></h1>
       <p id="userRole"></p>
     </div>
 
-    <!-- ثلاثة أعمدة للخدمات -->
-    <div class="columns-container top-right">
-      <div class="column" id="col1">
-        <h3>وزارة الداخلية</h3>
-        <div class="cards-container" id="servicesCol1"></div>
+    <!-- Dashboard كامل داخل Main Content -->
+    <div id="dashboard">
+
+      <!-- ثلاثة أعمدة للخدمات -->
+      <div class="columns-container">
+        <div class="column" id="col1">
+          <h3>وزارة الداخلية</h3>
+          <div class="cards-container" id="servicesCol1"></div>
+        </div>
+        <div class="column" id="col2">
+          <h3>وزارة الصحة</h3>
+          <div class="cards-container" id="servicesCol2"></div>
+        </div>
+        <div class="column" id="col3">
+          <h3>وزارة العدل</h3>
+          <div class="cards-container" id="servicesCol3"></div>
+        </div>
       </div>
-      <div class="column" id="col2">
-        <h3>وزارة الصحة</h3>
-        <div class="cards-container" id="servicesCol2"></div>
+
+      <!-- الإعدادات المنبثقة -->
+      <div id="settingsSection" class="settings-dropdown" style="display:none;">
+        <h3>الإعدادات</h3>
+        <ul>
+          <li onclick="logout()">تسجيل الخروج</li>
+        </ul>
       </div>
-      <div class="column" id="col3">
-        <h3>وزارة العدل</h3>
-        <div class="cards-container" id="servicesCol3"></div>
-      </div>
-    </div>
 
-    <!-- إعدادات منبثقة -->
-    <div id="settingsSection" class="section settings-dropdown" style="display:none;">
-      <h3>الإعدادات</h3>
-      <ul>
-        <li onclick="logout()">تسجيل الخروج</li>
-      </ul>
     </div>
-
-    <!-- Home Section -->
-    <div id="home" class="section">
-      <h3>لوحة التحكم</h3>
-      <p>اختر خدمة من القائمة للوصول إلى الأنظمة المتاحة لك.</p>
-    </div>
-
-    <!-- Services Section -->
-    <div id="services" class="section" style="display:none;">
-      <h3>الخدمات</h3>
-      <div class="cards-container" id="servicesCards"></div>
-    </div>
-
   </div>
 </div>
 
