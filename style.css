@@ -1,24 +1,23 @@
-/* ===== تسجيل الدخول ===== */
+/* ===== عام ===== */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f9fafb;
+  font-family: Arial;
   direction: rtl;
+  background: #f1f5f9;
 }
 
+/* ===== تسجيل الدخول ===== */
 .login-box {
-  width: 350px;
-  margin: 120px auto;
-  padding: 25px;
+  max-width: 350px;
+  margin: 80px auto;
   background: white;
-  border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  text-align: center;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.1);
 }
 
 .login-box h2 {
-  margin-bottom: 20px;
-  color: #1e3a8a;
+  text-align: center;
 }
 
 .login-box input {
@@ -27,35 +26,29 @@ body {
   margin: 8px 0;
   border-radius: 10px;
   border: 1px solid #ccc;
-  font-size: 14px;
 }
 
 .login-box button {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
-  background: #1e3a8a;
-  color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
+  background: #0f172a;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 16px;
-  transition: 0.3s;
 }
 
-.login-box button:hover {
-  opacity: 0.9;
-}
-
-.login-box button.demo {
-  background: #6b7280;
+.login-box .demo {
+  background: #2563eb;
 }
 
 /* ===== الصفحة الرئيسية ===== */
 
 /* الشريط العلوي */
 .top-bar {
-  background: #1e3a8a;
+  background: #0f172a;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -81,31 +74,13 @@ body {
 }
 
 .settings {
+  font-size: 14px;
   cursor: pointer;
-}
-
-/* قائمة الإعدادات */
-.settings-menu {
-  position: fixed;
-  top: 60px;
-  right: 10px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  width: 180px;
-}
-
-.hidden {
-  display: none;
 }
 
 /* البحث */
 .search-box {
-  padding: 80px 15px 15px 15px;
+  padding: 75px 15px 15px 15px; /* مسافة أعلى لتعويض الشريط */
 }
 
 .search-box input {
@@ -113,19 +88,21 @@ body {
   padding: 14px;
   border-radius: 14px;
   border: 1px solid #ccc;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 /* كروت الخدمات */
 .content {
   padding: 15px;
   display: grid;
-  gap: 10px;
+  gap: 15px;
 }
 
 .service-card {
-  padding: 20px;
-  border-radius: 15px;
+  background: white;
+  padding: 28px;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
   font-size: 18px;
   font-weight: bold;
   text-align: center;
@@ -133,28 +110,9 @@ body {
   transition: 0.3s;
 }
 
-/* ألوان كل وزارة */
-.service-card.interior { background: #e0f2fe; color: #1e3a8a; }
-.service-card.health { background: #fee2e2; color: #b91c1c; }
-.service-card.justice { background: #d1fae5; color: #15803d; }
-
 .service-card:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-/* القوائم الفرعية لكل وزارة */
-.sub-services {
-  padding: 10px 20px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-.sub-services div {
-  padding: 8px 0;
-  cursor: pointer;
+  background: #2563eb;
+  color: white;
 }
 
 /* الشريط السفلي */
@@ -162,7 +120,7 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: #1e3a8a;
+  background: #0f172a;
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
