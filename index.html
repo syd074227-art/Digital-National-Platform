@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>الرقمية KR هيئة</title>
 <link rel="stylesheet" href="style.css">
+
+<!-- مكتبة face-api.js -->
+<script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+<script defer src="script.js"></script>
 </head>
 <body>
 
@@ -31,22 +35,26 @@
     </select>
 
     <input type="text" id="discord" placeholder="اسمك في Discord">
-    <input type="text" id="mapId" placeholder="رقم هويتك في الماب">
+    <input type="text" id="mapId" placeholder="مثال [30919918]">
+
+    <!-- رفع الصورة -->
     <input type="file" id="idImage" accept="image/*">
 
+    <!-- مثال الصورة مباشرة أسفل رفع الملف -->
+    <div class="id-preview">
+      <p class="example-text">مثال على الصورة المطلوبة: اظهار الهوية مع الوجه</p>
+      <img id="idExample" src="https://image2url.com/r2/default/images/1769695282320-2ade9dfa-ea7d-4f34-b1f5-81fd757f4464.jpeg" alt="مثال الهوية">
+    </div>
+
+    <!-- زر التفعيل -->
     <button id="submitBtn" class="pulse">طلب تفعيل الهوية</button>
 
+    <!-- رسالة الخطأ أسفل الزر -->
     <div id="message" class="hidden"></div>
 
     <button id="demoBtn" class="demo">دخول تجريبي</button>
-
-    <div class="id-preview">
-      <img id="idExample" src="https://image2url.com/r2/default/images/1769695282320-2ade9dfa-ea7d-4f34-b1f5-81fd757f4464.jpeg" alt="مثال الهوية">
-    </div>
   </div>
 
 </div>
-
-<script src="script.js"></script>
 </body>
 </html>
