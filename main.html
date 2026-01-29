@@ -4,59 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>الحكومة الرقمية KR</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- شريط أعلى -->
-<header class="header">
-  <div class="logo">الحكومة الرقمية KR</div>
-  <div class="user-menu">
-    <span id="username-display"></span>
-    <button onclick="logout()">تسجيل الخروج</button>
+<!-- الشريط العلوي -->
+<header class="top-bar">
+  <div class="user-info">
+    <img id="userImage" class="user-img">
+    <span id="userName"></span>
+  </div>
+
+  <div class="settings">
+    <button>الإعدادات</button>
   </div>
 </header>
 
-<!-- المحتوى الرئيسي -->
-<main class="main-content">
-  <h1>مرحبا بك في بوابة الحكومة الرقمية</h1>
-  <p>اختر الخدمة المناسبة من القوائم أدناه:</p>
+<!-- البحث -->
+<section class="search-section">
+  <input type="text" placeholder="ابحث عن خدمة">
+</section>
 
-  <div class="services-container">
-
-    <!-- خدمات وزارة الداخلية -->
-    <div class="service-card interior">
-      <h2>الخدمات العامة لوزارة الداخلية</h2>
-      <ul>
-        <li>تقديم طلب تفعيل الهوية</li>
-        <li>الاستعلام عن الهوية</li>
-        <li>خدمات أمنية متنوعة</li>
-      </ul>
-    </div>
-
-    <!-- خدمات وزارة الصحة -->
-    <div class="service-card health">
-      <h2>الخدمات العامة لوزارة الصحة</h2>
-      <ul>
-        <li>تقديم طلب التحقق الصحي</li>
-        <li>خدمات الطوارئ الصحية</li>
-        <li>تسجيل المرافق الصحية</li>
-      </ul>
-    </div>
-
-    <!-- خدمات وزارة العدل -->
-    <div class="service-card justice">
-      <h2>الخدمات العامة لوزارة العدل</h2>
-      <ul>
-        <li>تقديم طلبات قضائية</li>
-        <li>الاستعلام عن القضايا</li>
-        <li>خدمات المحامين والقضاة</li>
-      </ul>
-    </div>
-
-  </div>
+<!-- المحتوى -->
+<main id="content">
+  <div class="service-card">وزارة الداخلية</div>
+  <div class="service-card">وزارة الصحة</div>
+  <div class="service-card">وزارة العدل</div>
 </main>
+
+<!-- الشريط السفلي -->
+<nav class="bottom-nav">
+  <button>KR</button>
+  <button>الإعلام</button>
+  <button>الخدمات</button>
+  <button>الرسائل</button>
+  <button>معلوماتي</button>
+</nav>
 
 <script src="main.js"></script>
 </body>
