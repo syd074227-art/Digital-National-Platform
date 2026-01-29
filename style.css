@@ -70,7 +70,8 @@ body {
 .error-msg {
   display: none;
   margin-top: 15px;
-  color: #b91c1c;
+  color: #b91c1c; /* أحمر رسمي */
   font-size: 14px;
   font-weight: 600;
+  animation: pulse 0.8s ease-in-out infinite;
 }
