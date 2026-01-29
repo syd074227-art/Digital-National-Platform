@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة الموظف</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-container">
+  <div class="dashboard-box">
+    <h2 id="welcome">مرحبا، الموظف</h2>
+
+    <div class="info-group">
+      <p><strong>الهوية:</strong> <span id="userID"></span></p>
+      <p><strong>الجهة / الدور:</strong> <span id="userRole"></span></p>
+    </div>
+
+    <div class="services">
+      <h3>الخدمات المسموحة:</h3>
+      <ul id="servicesList"></ul>
+    </div>
+
+    <button onclick="logout()">تسجيل الخروج</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
