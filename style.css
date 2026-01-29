@@ -1,142 +1,98 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-
 body {
-  margin: 0;
-  font-family: 'Orbitron', sans-serif;
-  background: #0a0a0a;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  background: #0B0C10;
+  color: #FFF;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.kr-title {
+.header-kr {
   text-align: center;
-  font-size: 28px;
-  color: rgba(255,255,255,0.3);
-  animation: pulse 2s infinite;
-  margin-bottom: 5px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
-.kr-subtitle {
-  text-align: center;
-  font-size: 18px;
-  color: #00ffff;
-  margin-bottom: 20px;
-  text-shadow: 0 0 10px #00ffff;
+.header-kr h1 {
+  color: #00BFFF;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+  animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-  0% { opacity: 0.3; }
-  50% { opacity: 0.6; }
-  100% { opacity: 0.3; }
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
-.login-box {
-  background: rgba(20,20,20,0.9);
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 30px rgba(0,255,255,0.2);
-  width: 360px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #1F2833;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.login-box input, .login-box select {
+.form-container label {
+  display: block;
+  margin-top: 10px;
+}
+
+.form-container input, select {
   width: 100%;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
   border: none;
-  font-size: 14px;
-  outline: none;
-  background: #111;
+}
+
+button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: #00BFFF;
   color: #fff;
-  box-shadow: 0 0 10px rgba(0,255,255,0.2);
-  transition: 0.3s;
-}
-
-.login-box input:focus, .login-box select:focus {
-  box-shadow: 0 0 20px #00ffff;
-}
-
-#job option[value="وزارة الداخلية"] { background: #1e3a8a; color: #fff; }
-#job option[value="وزارة الصحة"] { background: #b91c1c; color: #fff; }
-#job option[value="وزارة العدل"] { background: #15803d; color: #fff; }
-
-.login-box button {
-  padding: 14px;
-  border-radius: 12px;
   border: none;
-  cursor: pointer;
-  font-size: 16px;
+  border-radius: 5px;
   font-weight: bold;
-  transition: 0.3s;
+  cursor: pointer;
 }
 
-#submitBtn {
-  background: #00ffff;
-  color: #000;
-  box-shadow: 0 0 15px #00ffff;
+button:hover {
+  background: #009ACD;
 }
-
-.pulse {
-  animation: pulseBtn 1.5s infinite;
-}
-
-@keyframes pulseBtn {
-  0% { box-shadow: 0 0 15px #00ffff; }
-  50% { box-shadow: 0 0 25px #00ffff; transform: scale(1.02); }
-  100% { box-shadow: 0 0 15px #00ffff; transform: scale(1); }
-}
-
-#submitBtn:hover {
-  transform: translateY(-2px);
-}
-
-button.demo {
-  background: #6b7280;
-  color: #fff;
-  box-shadow: 0 0 10px #6b7280;
-}
-
-button.demo:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px #6b7280;
-}
-
-.hidden { display: none; }
 
 .id-preview {
   text-align: center;
-  margin-top: 5px;
-}
-
-.id-preview .example-text {
-  font-size: 12px;
-  color: #00ffff;
-  margin-bottom: 5px;
+  margin-top: 10px;
 }
 
 .id-preview img {
-  width: 150px;
-  border-radius: 12px;
-  border: 2px solid #00ffff;
-  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+  max-width: 100%;
+  border: 2px solid #00BFFF;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
-/* رسالة الخطأ */
+.example-text {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* التحذيرات */
 #error-msg {
-  color: #ff3860;
+  color: #FF3B3B;
+  font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
-  animation: pulseError 0.5s infinite;
-  margin-top: 8px;
+  animation: pulseMsg 1s infinite;
+  margin-top: 10px;
 }
 
-@keyframes pulseError {
-  0% { opacity: 1; }
-  50% { opacity: 0.6; }
-  100% { opacity: 1; }
+@keyframes pulseMsg {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
 }
+
+.hidden { display: none; }
