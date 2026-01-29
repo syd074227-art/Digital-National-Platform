@@ -1,106 +1,130 @@
-// ==============================
-// Users + تسجيل الدخول + Dashboard
-// ==============================
+// ==========================
+// البيانات العامة
+// ==========================
+let requests = JSON.parse(localStorage.getItem("requests")) || [];
 
-// جلب قائمة المستخدمين من localStorage أو إنشاء مصفوفة جديدة
-let users = JSON.parse(localStorage.getItem("users")) || [];
+// الهويات المسموح بها مسبقاً
+const validIDs = [
+  "CIVID-01828",
+  "MOAid-81837",
+  "MOHID-92833",
+  "DOJID-28733",
+  "admin-1",
+  "admin-2"
+];
 
-// إنشاء حساب Owner تلقائيًا إذا لم يكن موجود
-if (!users.find(u => u.id === "Owner")) {
-    users.push({ id: "Owner", pass: "050910", role: "Owner" });
-    localStorage.setItem("users", JSON.stringify(users));
+// ==========================
+// معاينة الصورة بعد رفعها
+// ==========================
+function previewImage(event){
+    const preview = document.getElementById("preview");
+    const file = event.target.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(){
+            preview.src = reader.result;
+            preview.style.display = "block";
+        }
+        reader.readAsDataURL(file);
+    }
 }
 
-// ==============================
-// وظيفة تسجيل الدخول
-// ==============================
-function login() {
-    const id = document.getElementById("id").value.trim();
-    const pass = document.getElementById("pass").value.trim();
+// ==========================
+// تحديث قائمة الوظائف حسب المهنة
+// ==========================
+const professionSelect = document.getElementById("profession");
+const roleSelect = document.getElementById("role");
+
+professionSelect.addEventListener("change", function(){
+    const profession = this.value;
+    let roles = [];
+
+    if(profession === "وزارة الداخلية"){
+        roles = ["جندي","جندي أول","عريف","وكيل رقيب","رقيب","رقيب أول","رئيس رقباء","ملازم","ملازم أول","نقيب","رائد","مقدم","عقيد","عميد","لواء","فريق","فريق أول","نائب مدير الأمن العام","مدير الأمن العام","نائب الوزير الداخلية","وزير الداخلية"];
+    } else if(profession === "وزارة الصحة"){
+        roles = ["مسعف","دكتور عام","دكتور","دكتور متمرس","طبيب عام","استشاري","مدرب صحي","أخصائي","منسوبي الهلال الأحمر","مسؤول مدربين الصحة","نائب مسؤول مدربين الصحة","نائب مسؤول الهلال الأحمر","مسؤول الهلال الأحمر","جراح","جراح مساعد","إدارة الشؤون الصحية","نائب وزير الصحة","وزير الصحة","مدير مستشفى","نائب مدير مستشفى"];
+    } else if(profession === "وزارة العدل"){
+        roles = ["قاضي","قاضي متمرس","محامي","محامي متمرس","قاضي محكمة عليا","إدارة الشؤون العدلية","مستشار وزير العدل","نائب وزير العدل","وزير العدل"];
+    }
+
+    if(roles.length > 0){
+        roleSelect.style.display = "block";
+        roleSelect.innerHTML = "<option value=''>اختر الوظيفة</option>";
+        roles.forEach(r => {
+            const opt = document.createElement("option");
+            opt.value = r;
+            opt.textContent = r;
+            roleSelect.appendChild(opt);
+        });
+    } else {
+        roleSelect.style.display = "none";
+        roleSelect.innerHTML = "";
+    }
+});
+
+// ==========================
+// إرسال طلب تفعيل الهوية
+// ==========================
+function submitRequest(){
+    const fullName = document.getElementById("fullName").value.trim();
+    const age = document.getElementById("age").value.trim();
+    const userID = document.getElementById("userID").value.trim();
+    const discordUsername = document.getElementById("discordUsername").value.trim();
+    const profession = professionSelect.value;
+    const role = roleSelect.value;
+    const picInput = document.getElementById("profilePic");
     const err = document.getElementById("err");
+    const success = document.getElementById("success");
 
-    const user = users.find(u => u.id === id && u.pass === pass);
-
-    if (!user) {
-        // ظهور رسالة الخطأ 3 ثوانٍ مع نبض
+    // التحقق من تعبئة كل الحقول
+    if(!fullName || !age || !userID || !discordUsername || !profession || (roleSelect.style.display !== "none" && !role) || picInput.files.length === 0){
         err.style.display = "block";
-        err.innerText = "الهوية أو كلمة المرور غير صحيحة. يرجى التواصل مع إدارة السيرفر لإنشاء الهوية.";
-        setTimeout(() => err.style.display = "none", 3000);
+        err.innerText = "يرجى تعبئة كل المعلومات المطلوبة ورفع الصورة.";
+        setTimeout(()=>err.style.display="none",3000);
         return;
     }
 
-    // حفظ المستخدم الحالي
-    localStorage.setItem("currentUser", JSON.stringify(user));
-
-    // الانتقال إلى Dashboard
-    window.location.href = "dashboard.html";
-}
-
-// ==============================
-// وظيفة تحميل Dashboard
-// ==============================
-function loadDashboard() {
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    if (!user) {
-        window.location.href = "index.html";
+    // التحقق من صحة الهوية
+    if(!validIDs.includes(userID)){
+        err.style.display = "block";
+        err.innerText = "الهوية المدخلة غير موجودة في النظام. يرجى التواصل مع الإدارة.";
+        setTimeout(()=>err.style.display="none",3000);
         return;
     }
 
-    // عرض الترحيب والوظيفة
-    document.getElementById("welcome").innerText = "مرحبا، " + user.id;
-    document.getElementById("userRole").innerText = user.role;
+    // قراءة الصورة
+    const reader = new FileReader();
+    reader.onload = function(){
+        const picData = reader.result;
 
-    // إظهار إعدادات فقط للمستخدمين الأعلى رتبة
-    if (["Admin-2", "Owner"].includes(user.role)) {
-        document.querySelectorAll(".adminOnly").forEach(el => el.style.display = "block");
+        const request = {
+            id: userID,
+            name: fullName,
+            age: age,
+            discordUsername: discordUsername,
+            profession: profession,
+            role: role || "مواطن",
+            profilePic: picData,
+            status: "pending" // قيد الانتظار
+        };
+
+        requests.push(request);
+        localStorage.setItem("requests", JSON.stringify(requests));
+
+        success.style.display = "block";
+        success.innerText = "تم إرسال طلب تفعيل الهوية! يرجى انتظار الموافقة.";
+        setTimeout(()=>success.style.display="none",5000);
+
+        // إعادة ضبط النموذج
+        document.getElementById("fullName").value="";
+        document.getElementById("age").value="";
+        document.getElementById("userID").value="";
+        document.getElementById("discordUsername").value="";
+        professionSelect.value="";
+        roleSelect.style.display="none";
+        roleSelect.innerHTML="";
+        picInput.value="";
+        document.getElementById("preview").style.display="none";
     }
-
-    // تعريف الخدمات لكل وزارة
-    const services = {
-        "MOAid": ["خدمة عامة 1", "خدمة عامة 2", "خدمة عامة 3"],
-        "MOHID": ["خدمة صحية 1", "خدمة صحية 2"],
-        "DOJID": ["خدمة عدلية 1", "خدمة عدلية 2"],
-        "Admin-1": ["إدارة محدودة"],
-        "Admin-2": ["إدارة كاملة", "عرض المستخدمين"],
-        "Owner": ["التحكم الكامل بالنظام"]
-    };
-
-    // الأعمدة في Dashboard
-    const col1 = document.getElementById("servicesCol1");
-    const col2 = document.getElementById("servicesCol2");
-    const col3 = document.getElementById("servicesCol3");
-
-    if (col1 && col2 && col3) {
-        col1.innerHTML = "";
-        col2.innerHTML = "";
-        col3.innerHTML = "";
-
-        // تعبئة الأعمدة حسب الوزارة
-        (services["MOAid"] || []).forEach(s => col1.innerHTML += `<div class="card">${s}</div>`);
-        (services["MOHID"] || []).forEach(s => col2.innerHTML += `<div class="card">${s}</div>`);
-        (services["DOJID"] || []).forEach(s => col3.innerHTML += `<div class="card">${s}</div>`);
-    }
-}
-
-// ==============================
-// إعدادات منبثقة
-// ==============================
-function toggleSettings() {
-    const sec = document.getElementById("settingsSection");
-    sec.style.display = (sec.style.display === "block") ? "none" : "block";
-}
-
-// ==============================
-// تسجيل الخروج
-// ==============================
-function logout() {
-    localStorage.removeItem("currentUser");
-    window.location.href = "index.html";
-}
-
-// ==============================
-// تنفيذ Dashboard عند تحميل الصفحة
-// ==============================
-if (document.getElementById("servicesCol1")) {
-    loadDashboard();
+    reader.readAsDataURL(picInput.files[0]);
 }
