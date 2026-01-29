@@ -37,17 +37,13 @@ function loadDashboard(){
     document.querySelectorAll(".adminOnly").forEach(el=>el.style.display="block");
   }
 
+  // الخدمات لكل وزارة
   const services = {
-    "CIVID": ["خدمة عامة 1", "خدمة عامة 2"],
-    "MOAid": ["خدمة وزارة الداخلية 1", "خدمة وزارة الداخلية 2"],
-    "MOHID": ["خدمة وزارة الصحة 1", "خدمة وزارة الصحة 2"],
-    "DOJID": ["خدمة وزارة العدل 1", "خدمة وزارة العدل 2"],
-    "Admin-1": ["إدارة محدودة"],
-    "Admin-2": ["إدارة كاملة", "عرض المستخدمين"],
-    "Owner": ["التحكم الكامل بالنظام"]
+    "MOAid": ["خدمة 1", "خدمة 2"],
+    "MOHID": ["خدمة 1", "خدمة 2"],
+    "DOJID": ["خدمة 1", "خدمة 2"]
   };
 
-  // توزيع الخدمات على الأعمدة حسب الوزارة
   const col1 = document.getElementById("servicesCol1");
   const col2 = document.getElementById("servicesCol2");
   const col3 = document.getElementById("servicesCol3");
@@ -57,19 +53,10 @@ function loadDashboard(){
     col2.innerHTML = "";
     col3.innerHTML = "";
 
-    // وزارة الداخلية
     (services["MOAid"] || []).forEach(s => col1.innerHTML += `<div class="card">${s}</div>`);
-    // وزارة الصحة
     (services["MOHID"] || []).forEach(s => col2.innerHTML += `<div class="card">${s}</div>`);
-    // وزارة العدل
     (services["DOJID"] || []).forEach(s => col3.innerHTML += `<div class="card">${s}</div>`);
   }
-}
-
-function showSection(id){
-  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
-  const sec = document.getElementById(id);
-  if(sec) sec.style.display="block";
 }
 
 function toggleSettings(){
@@ -82,5 +69,10 @@ function logout(){
   window.location.href="index.html";
 }
 
-// نفذ Dashboard فقط لو الصفحة تحتوي الأعمدة
+function scrollToSection(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior: 'smooth'});
+}
+
+// تنفيذ Dashboard عند وجود الأعمدة
 if(document.getElementById("servicesCol1")) loadDashboard();
