@@ -1,107 +1,143 @@
 body {
   font-family: 'Cairo', sans-serif;
+  margin: 0;
   background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+/* تسجيل الدخول */
+.login-container {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.login-box, .dashboard-box {
-  background: #ffffff;
-  width: 420px;
-  padding: 45px;
+.login-box {
+  background: #fff;
+  width: 380px;
+  padding: 40px;
   border-radius: 18px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
   text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
 .system-title {
   font-size: 22px;
   font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 5px;
 }
 
 .system-subtitle {
   font-size: 14px;
-  color: #475569;
-  margin-bottom: 30px;
+  color: #64748b;
+  margin-bottom: 25px;
 }
 
 .login-box input {
   width: 100%;
-  padding: 13px;
+  padding: 12px;
   margin-bottom: 15px;
   border-radius: 10px;
   border: 1px solid #cbd5e1;
-  font-size: 15px;
 }
 
-.login-box input:focus {
-  outline: none;
-  border-color: #1e3a8a;
-  box-shadow: 0 0 6px rgba(30,58,138,0.4);
-}
-
-.login-box button, .dashboard-box button {
+.login-box button {
   width: 100%;
-  padding: 14px;
+  padding: 13px;
+  border-radius: 10px;
+  border: none;
   background: #1e3a8a;
   color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.login-box button:hover, .dashboard-box button:hover {
-  background: #0f172a;
-}
-
-/* ===== Error Message ===== */
+/* رسالة الخطأ */
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.8; }
-  100% { transform: scale(1); opacity: 1; }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 .error-msg {
   display: none;
-  margin-top: 15px;
   color: #b91c1c;
   font-size: 14px;
-  font-weight: 600;
-  animation: pulse 0.8s ease-in-out infinite;
+  margin-top: 10px;
+  animation: pulse 0.8s infinite;
 }
 
-.info-group {
-  text-align: right;
-  margin-top: 20px;
-  font-size: 15px;
-  line-height: 1.8;
-  color: #0f172a;
+/* الصفحة الرئيسية */
+.main-container {
+  display: flex;
+  height: 100vh;
 }
 
-.services {
-  margin-top: 25px;
-  text-align: right;
+.sidebar {
+  width: 220px;
+  background: #0f172a;
+  color: #fff;
+  padding: 20px;
 }
 
-.services h3 {
-  color: #1e3a8a;
+.sidebar ul {
+  list-style: none;
+  padding: 0;
 }
 
-.services ul {
-  list-style: square;
-  padding-right: 20px;
-  color: #1e3a8a;
+.sidebar li {
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #1e293b;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  background: #2563eb;
+}
+
+.main-content {
+  flex: 1;
+  padding: 25px;
+  background: #f8fafc;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.settings-dropdown {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  width: 250px;
+}
+.settings-dropdown ul {
+  list-style: none;
+  padding: 0;
+}
+.settings-dropdown li {
+  padding: 10px;
+  background: #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.settings-dropdown li:hover {
+  background: #ef4444;
+  color: #fff;
 }
