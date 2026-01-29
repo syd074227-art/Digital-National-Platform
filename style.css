@@ -34,42 +34,55 @@ body {
   box-shadow: 0 0 20px rgba(0,191,255,0.4);
 }
 
-.form-container label {
+label {
   display: block;
   margin-top: 15px;
   font-weight: bold;
+  font-size: 1.1rem;
+  color: #00FFFF;
+  text-shadow: 0 0 5px #00FFFF;
 }
 
-.form-container input, select {
+input, select {
   display: block;
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   margin-top: 5px;
-  margin-bottom: 15px;
-  border-radius: 8px;
+  margin-bottom: 20px;
+  border-radius: 12px;
   border: none;
-  font-size: 1rem;
-  background: linear-gradient(145deg, #0ff, #00bfff);
-  color: #000;
+  font-size: 1.1rem;
   font-family: 'Orbitron', sans-serif;
-  box-shadow: 0 0 10px #00BFFF, 0 0 20px #0ff inset;
+  background: linear-gradient(135deg, #0ff, #00bfff);
+  color: #000;
+  box-shadow: 0 0 15px #00bfff, 0 0 30px #0ff inset;
+  transition: 0.3s;
 }
 
 select[multiple] {
-  background: linear-gradient(145deg, #ff00ff, #ff69b4);
+  background: linear-gradient(135deg, #ff00ff, #ff69b4);
   color: #000;
+  height: auto;
 }
 
 select option {
   background: #0B0C10;
   color: #0ff;
   font-weight: bold;
-  padding: 5px;
+  padding: 8px;
+  border-bottom: 1px solid #00bfff;
+  transition: 0.3s;
 }
 
-select:focus {
+select option:hover {
+  background: #00bfff;
+  color: #0B0C10;
+  transform: scale(1.05);
+}
+
+select:focus, input:focus {
   outline: none;
-  box-shadow: 0 0 15px #00ffff, 0 0 25px #0ff inset;
+  box-shadow: 0 0 25px #00ffff, 0 0 40px #0ff inset;
 }
 
 button {
@@ -106,6 +119,7 @@ button:hover {
   font-size: 1rem;
   color: #aaa;
   margin-bottom: 5px;
+  font-style: italic;
 }
 
 #error-msg {
