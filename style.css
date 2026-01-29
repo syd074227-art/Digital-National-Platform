@@ -46,7 +46,6 @@ body {
 .register-card button:hover { background:#1e40af; transform:scale(1.03); }
 
 .error-msg { display:none; color:#b91c1c; font-weight:600; margin-top:10px; animation:pulse 0.8s infinite; }
-.success-msg { display:none; color:#16a34a; font-weight:600; margin-top:10px; }
 
 .upload-label {
   display:block;
