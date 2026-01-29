@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة تحكم Owner</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="login-container">
+  <div class="admin-box">
+    <div class="logo">🏛️ لوحة تحكم Owner</div>
+    <h2>إنشاء هوية جديدة</h2>
+
+    <div class="input-group">
+      <span class="icon">🏷️</span>
+      <select id="type">
+        <option value="CIVID">مواطن</option>
+        <option value="MOAid">وزارة الداخلية</option>
+        <option value="MOHID">وزارة الصحة</option>
+        <option value="DOJID">وزارة العدل</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <span class="icon">🔢</span>
+      <input id="number" type="number" placeholder="رقم الهوية">
+    </div>
+
+    <div class="input-group">
+      <span class="icon">🔒</span>
+      <input id="password" type="text" placeholder="كلمة المرور للهوية">
+    </div>
+
+    <button onclick="createID()">إنشاء الهوية</button>
+    <p id="msg" class="error-msg"></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
