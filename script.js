@@ -1,21 +1,6 @@
-// ==========================
-// البيانات العامة
-// ==========================
 let requests = JSON.parse(localStorage.getItem("requests")) || [];
 
-// الهويات المسموح بها مسبقاً
-const validIDs = [
-  "CIVID-01828",
-  "MOAid-81837",
-  "MOHID-92833",
-  "DOJID-28733",
-  "admin-1",
-  "admin-2"
-];
-
-// ==========================
-// معاينة الصورة بعد رفعها
-// ==========================
+// معاينة الصورة
 function previewImage(event){
     const preview = document.getElementById("preview");
     const file = event.target.files[0];
@@ -29,9 +14,7 @@ function previewImage(event){
     }
 }
 
-// ==========================
 // تحديث قائمة الوظائف حسب المهنة
-// ==========================
 const professionSelect = document.getElementById("profession");
 const roleSelect = document.getElementById("role");
 
@@ -62,9 +45,7 @@ professionSelect.addEventListener("change", function(){
     }
 });
 
-// ==========================
-// إرسال طلب تفعيل الهوية
-// ==========================
+// إرسال طلب تفعيل الهوية (ينتظر الإدارة)
 function submitRequest(){
     const fullName = document.getElementById("fullName").value.trim();
     const age = document.getElementById("age").value.trim();
@@ -84,15 +65,6 @@ function submitRequest(){
         return;
     }
 
-    // التحقق من صحة الهوية
-    if(!validIDs.includes(userID)){
-        err.style.display = "block";
-        err.innerText = "الهوية المدخلة غير موجودة في النظام. يرجى التواصل مع الإدارة.";
-        setTimeout(()=>err.style.display="none",3000);
-        return;
-    }
-
-    // قراءة الصورة
     const reader = new FileReader();
     reader.onload = function(){
         const picData = reader.result;
@@ -105,14 +77,14 @@ function submitRequest(){
             profession: profession,
             role: role || "مواطن",
             profilePic: picData,
-            status: "pending" // قيد الانتظار
+            status: "pending" // قيد الانتظار للموافقة
         };
 
         requests.push(request);
         localStorage.setItem("requests", JSON.stringify(requests));
 
         success.style.display = "block";
-        success.innerText = "تم إرسال طلب تفعيل الهوية! يرجى انتظار الموافقة.";
+        success.innerText = "تم إرسال طلب تفعيل الهوية! يرجى انتظار موافقة الإدارة.";
         setTimeout(()=>success.style.display="none",5000);
 
         // إعادة ضبط النموذج
