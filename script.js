@@ -2,31 +2,25 @@ const jobSelect = document.getElementById("job");
 const jobDetails = document.getElementById("jobDetails");
 const extraJobDetails = document.getElementById("extraJobDetails");
 
-// الرتب لكل وزارة (اختيار واحد فقط)
 const jobOptions = {
   "وزارة الداخلية": ["جندي","جندي أول","عريف","وكيل رقيب","رقيب","رقيب أول","رئيس رقباء","ملازم","ملازم أول","نقيب","رائد","مقدم","عقيد","عميد","لواء","فريق","فريق أول","نائب مدير الأمن العام","مدير الأمن العام","نائب وزير الداخلية","وزير الداخلية"],
   "وزارة الصحة": ["مسعف","دكتور عام","دكتور","دكتور متمرس","طبيب عام","استشاري","مدرب صحي","أخصائي","منسوبي الهلال الأحمر","مسؤول مدربين الصحة","نائب مسؤول مدربين الصحة","نائب مسؤول الهلال الأحمر","مسؤول الهلال الأحمر","جراح","جراح مساعد","نائب وزير الصحة","وزير الصحة","مدير مستشفى","نائب مدير مستشفى"],
   "وزارة العدل": ["قاضي","قاضي متمرس","محامي","محامي متمرس","قاضي محكمة عليا","مستشار وزير العدل","نائب وزير العدل","وزير العدل"]
 };
 
-// المناصب الإدارية لكل وزارة (multi-select)
 const extraJobOptions = {
   "وزارة الداخلية": ["إدارة القبول والتجنيد","إدارة شؤون الداخلية","إدارة شؤون الأفراد","سلك الضباط"],
   "وزارة الصحة": ["إدارة القبول والتسجيل","إدارة الشؤون الصحية","مسؤول الشؤون الصحية","إدارة متطوعين الهلال الأحمر","مسؤول الترقيات الصحية","إدارة الشكاوي بوزارة الصحة","إدارة الكلية الصحية"],
   "وزارة العدل": ["إدارة القبول والتسجيل","إدارة الشكاوي بوزارة العدل","إدارة الشؤون العدلية"]
 };
 
-// عند تغيير الوزارة
 jobSelect.addEventListener("change", function(){
   const selected = this.value;
 
-  // إعادة تعيين المنصب الرئيسي
   jobDetails.innerHTML = '<option value="">اختر المنصب</option>';
-  // إعادة تعيين المناصب الإدارية
   extraJobDetails.innerHTML = '';
 
   if(jobOptions[selected]){
-    // إضافة الرتب للمنصب الرئيسي
     jobOptions[selected].forEach(opt=>{
       const option1 = document.createElement("option");
       option1.value = opt;
@@ -34,7 +28,6 @@ jobSelect.addEventListener("change", function(){
       jobDetails.appendChild(option1);
     });
 
-    // إضافة المناصب الإدارية (multi-select)
     if(extraJobOptions[selected]){
       extraJobOptions[selected].forEach(opt=>{
         const option2 = document.createElement("option");
