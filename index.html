@@ -3,25 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>هيئة KR الرقمية</title>
+<title>الرقمية KR هيئة</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="login-container">
 
-  <h1 class="kr-logo">هيئة KR الرقمية</h1>
-
   <div class="login-box">
-    <h2>تسجيل الدخول</h2>
+    <!-- العنوان الرسمي -->
+    <h2 class="kr-title">الرقمية KR هيئة</h2>
+    <p class="kr-subtitle">لتفعيل الهوية الوطنية، قم بإكمال الحقول أدناه</p>
 
-    <!-- الاسم الكامل -->
     <input type="text" id="fullName" placeholder="اسمك الكامل">
-
-    <!-- العمر -->
     <input type="number" id="age" placeholder="العمر">
 
-    <!-- المهنة -->
     <select id="job">
       <option value="">اختر مهنتك</option>
       <option value="مواطن">مواطن</option>
@@ -30,26 +26,25 @@
       <option value="وزارة العدل">منسوبي وزارة العدل</option>
     </select>
 
-    <!-- خيارات كل وزارة -->
     <select id="jobDetails" class="hidden">
       <option value="">اختر المنصب</option>
     </select>
 
-    <!-- اسم المستخدم في Discord -->
     <input type="text" id="discord" placeholder="اسمك في Discord">
-
-    <!-- رقم الهوية في الماب -->
     <input type="text" id="mapId" placeholder="رقم هويتك في الماب">
-
-    <!-- رفع صورة الهوية -->
     <input type="file" id="idImage" accept="image/*">
 
-    <!-- زر طلب تفعيل الهوية -->
-    <button id="submitBtn">طلب تفعيل الهوية</button>
+    <button id="submitBtn" class="pulse">طلب تفعيل الهوية</button>
 
-    <!-- تسجيل الدخول التجريبي -->
+    <div id="message" class="hidden"></div>
+
     <button id="demoBtn" class="demo">دخول تجريبي</button>
+
+    <div class="id-preview">
+      <img id="idExample" src="https://image2url.com/r2/default/images/1769695282320-2ade9dfa-ea7d-4f34-b1f5-81fd757f4464.jpeg" alt="مثال الهوية">
+    </div>
   </div>
+
 </div>
 
 <script src="script.js"></script>
