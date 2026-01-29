@@ -16,9 +16,8 @@ function login() {
 
   if (!user) {
     err.style.display = "block";
-    err.innerHTML =
-      "الهوية أو كلمة المرور غير صحيحة.<br>يرجى التواصل مع إدارة السيرفر لإنشاء الهوية.";
-    setTimeout(() => err.style.display = "none", 3000);
+    err.innerHTML = "الهوية أو كلمة المرور غير صحيحة.<br>يرجى التواصل مع إدارة السيرفر لإنشاء الهوية.";
+    setTimeout(() => err.style.display="none", 3000);
     return;
   }
 
@@ -26,61 +25,62 @@ function login() {
   window.location.href = "dashboard.html";
 }
 
-// ===============================
-// تحميل Dashboard فقط لو العنصر موجود
-// ===============================
-function loadDashboard() {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser) { window.location.href = "index.html"; return; }
+// Dashboard
+function loadDashboard(){
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if(!user){ window.location.href="index.html"; return; }
 
-  const welcome = document.getElementById("welcome");
-  if (welcome) welcome.innerText = "مرحبا، " + currentUser.id;
+  document.getElementById("welcome").innerText = "مرحبا، " + user.id;
+  document.getElementById("userRole").innerText = user.role;
 
-  const userRoleEl = document.getElementById("userRole");
-  if (userRoleEl) userRoleEl.innerText = currentUser.role;
-
-  // إظهار الإعدادات فقط للمدراء
-  if(["Admin-2","Owner"].includes(currentUser.role)){
-    document.querySelectorAll(".adminOnly").forEach(el => el.style.display="block");
+  // إظهار الإعدادات للمدراء
+  if(["Admin-2","Owner"].includes(user.role)){
+    document.querySelectorAll(".adminOnly").forEach(el=>el.style.display="block");
   }
 
-  const cardsContainer = document.getElementById("servicesCards");
-  if(cardsContainer){
-    const services = {
-      "CIVID": ["الخدمات العامة"],
-      "MOAid": ["خدمات وزارة الداخلية"],
-      "MOHID": ["خدمات وزارة الصحة"],
-      "DOJID": ["خدمات وزارة العدل"],
-      "Admin-1": ["إدارة محدودة"],
-      "Admin-2": ["إدارة كاملة","عرض المستخدمين"],
-      "Owner": ["التحكم الكامل بالنظام"]
-    };
-    cardsContainer.innerHTML = (services[currentUser.role] || []).map(s => `<div class="card">${s}</div>`).join("");
+  // توزيع الخدمات على الأعمدة الثلاثة
+  const services = {
+    "CIVID":["الخدمات العامة"],
+    "MOAid":["خدمات وزارة الداخلية"],
+    "MOHID":["خدمات وزارة الصحة"],
+    "DOJID":["خدمات وزارة العدل"],
+    "Admin-1":["إدارة محدودة"],
+    "Admin-2":["إدارة كاملة","عرض المستخدمين"],
+    "Owner":["التحكم الكامل بالنظام"]
+  };
+
+  const col1 = document.getElementById("servicesCol1");
+  const col2 = document.getElementById("servicesCol2");
+  const col3 = document.getElementById("servicesCol3");
+
+  if(col1 && col2 && col3){
+    col1.innerHTML = "";
+    col2.innerHTML = "";
+    col3.innerHTML = "";
+
+    (services[user.role] || []).forEach((s,i)=>{
+      if(i===0) col1.innerHTML += `<div class="card">${s}</div>`;
+      else if(i===1) col2.innerHTML += `<div class="card">${s}</div>`;
+      else col3.innerHTML += `<div class="card">${s}</div>`;
+    });
   }
 }
 
-// عرض أي قسم
 function showSection(id){
-  document.querySelectorAll(".section").forEach(s => s.style.display="none");
+  document.querySelectorAll(".section").forEach(s=>s.style.display="none");
   const sec = document.getElementById(id);
   if(sec) sec.style.display="block";
 }
 
-// إعدادات منبثقة
 function toggleSettings(){
   const sec = document.getElementById("settingsSection");
-  if(sec) sec.style.display = (sec.style.display==="block") ? "none" : "block";
+  sec.style.display = (sec.style.display==="block")?"none":"block";
 }
 
-// تسجيل الخروج
 function logout(){
   localStorage.removeItem("currentUser");
-  window.location.href = "index.html";
+  window.location.href="index.html";
 }
 
-// ===============================
-// نفذ Dashboard فقط لو الصفحة تحتوي البطاقة
-// ===============================
-if(document.getElementById("servicesCards")){
-  loadDashboard();
-}
+// نفذ Dashboard فقط لو الصفحة تحتوي servicesCol1
+if(document.getElementById("servicesCol1")) loadDashboard();
