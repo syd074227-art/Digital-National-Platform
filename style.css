@@ -28,11 +28,13 @@ body {
 
 /* Main Content */
 .main-content { flex: 1; padding: 25px; overflow-y: auto; background: #f8fafc; }
+
+/* Header */
 .header h1 { margin:0; font-size: 28px; }
 .header p { color:#475569; margin-top:5px; font-size: 16px; }
 
-/* Columns فوق يمين */
-.columns-container.top-right {
+/* Columns للخدمات */
+.columns-container {
   display: flex;
   gap: 20px;
   margin-top: 20px;
@@ -86,7 +88,7 @@ body {
   padding: 15px;
   border-radius: 12px;
   width: 250px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .settings-dropdown ul { list-style:none; padding:0; }
 .settings-dropdown li {
