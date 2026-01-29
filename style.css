@@ -1,0 +1,58 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0a0f1f, #000);
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 3rem;
+  color: #00f0ff;
+  text-shadow: 0 0 30px #00f0ff;
+  margin-bottom: 50px;
+}
+
+.step { margin-bottom: 60px; text-align: center; }
+
+.step h2 { margin-bottom: 25px; color: #7df9ff; letter-spacing: 2px; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 25px; }
+
+.card {
+  padding: 30px 20px;
+  background: linear-gradient(145deg, #0f172a, #020617);
+  border-radius: 18px;
+  border: 1px solid #00f0ff40;
+  cursor: pointer;
+  transition: 0.35s;
+  box-shadow: 0 0 25px #00f0ff25;
+}
+
+.card:hover { transform: translateY(-8px) scale(1.05); box-shadow: 0 0 50px #00f0ff; }
+
+.card.active { background: linear-gradient(145deg, #00f0ff, #0066ff); color: #000; box-shadow: 0 0 70px #00f0ff; }
+
+.cards.multi .card.active { background: linear-gradient(145deg, #ff00ff, #ff69b4); color: #000; }
+
+.hidden { display: none; }
+
+.id-preview { margin-top: 20px; text-align: center; }
+.id-preview img { max-width: 100%; border: 2px solid #00BFFF; border-radius: 8px; margin-top: 10px; }
+.example-text { font-size: 1rem; color: #aaa; margin-bottom: 5px; font-style: italic; }
+
+#message { color: #ff3b3b; font-size: 1.2rem; font-weight: bold; text-align: center; animation: pulseMsg 1s infinite; margin-top: 15px; }
+
+@keyframes pulseMsg {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
