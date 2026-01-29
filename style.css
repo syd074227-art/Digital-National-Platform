@@ -12,10 +12,10 @@ body {
 
 .header-kr h1 {
   color: #00BFFF;
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   font-weight: bold;
   letter-spacing: 2px;
-  text-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+  text-shadow: 0 0 15px rgba(0, 191, 255, 0.7);
   animation: pulse 1.5s infinite;
 }
 
@@ -26,36 +26,47 @@ body {
 }
 
 .form-container {
-  max-width: 500px;
+  max-width: 550px;
   margin: 0 auto;
   background: #1F2833;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,191,255,0.3);
 }
 
 .form-container label {
   display: block;
-  margin-top: 10px;
+  margin-top: 12px;
+  font-weight: bold;
 }
 
 .form-container input, select {
+  display: block;
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   margin-top: 5px;
-  border-radius: 5px;
+  margin-bottom: 15px;
+  border-radius: 6px;
   border: none;
+  font-size: 1rem;
+}
+
+select option {
+  padding: 8px;
 }
 
 button {
   margin-top: 15px;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background: #00BFFF;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
@@ -64,22 +75,22 @@ button:hover {
 
 .id-preview {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .id-preview img {
   max-width: 100%;
   border: 2px solid #00BFFF;
-  border-radius: 5px;
+  border-radius: 6px;
   margin-top: 5px;
 }
 
 .example-text {
   font-size: 0.9rem;
   color: #aaa;
+  margin-bottom: 5px;
 }
 
-/* التحذيرات */
 #error-msg {
   color: #FF3B3B;
   font-size: 1.2rem;
