@@ -3,17 +3,16 @@ const jobDetails = document.getElementById("jobDetails");
 const submitBtn = document.getElementById("submitBtn");
 const demoBtn = document.getElementById("demoBtn");
 
-// خيارات كل وزارة
 const jobOptions = {
   "وزارة الداخلية": ["جندي","جندي أول","عريف","وكيل رقيب","رقيب","رقيب أول","رئيس رقباء","ملازم","ملازم أول","نقيب","رائد","مقدم","عقيد","عميد","لواء","فريق","فريق أول","نائب مدير الأمن العام","مدير الأمن العام","نائب وزير الداخلية","وزير الداخلية"],
   "وزارة الصحة": ["مسعف","دكتور عام","دكتور","دكتور متمرس","طبيب عام","استشاري","مدرب صحي","أخصائي","منسوبي الهلال الأحمر","مسؤول مدربين الصحة","نائب مسؤول مدربين الصحة","نائب مسؤول الهلال الأحمر","مسؤول الهلال الأحمر","جراح","جراح مساعد","إدارة الشؤون الصحية","نائب وزير الصحة","وزير الصحة","مدير مستشفى","نائب مدير مستشفى"],
   "وزارة العدل": ["قاضي","قاضي متمرس","محامي","محامي متمرس","قاضي محكمة عليا","إدارة الشؤون العدلية","مستشار وزير العدل","نائب وزير العدل","وزير العدل"]
 };
 
-// تغيير خيارات الوظائف حسب الوزارة
+// عرض خيارات كل وزارة
 jobSelect.addEventListener("change", function(){
   const selected = this.value;
-  jobDetails.innerHTML = '<option value="">اختر الوظيفة</option>';
+  jobDetails.innerHTML = '<option value="">اختر المنصب</option>'; // تعديل النص
   if(jobOptions[selected]){
     jobOptions[selected].forEach(opt=>{
       const option = document.createElement("option");
@@ -27,7 +26,7 @@ jobSelect.addEventListener("change", function(){
   }
 });
 
-// زر طلب تفعيل الهوية
+// طلب تفعيل الهوية
 submitBtn.addEventListener("click", function(){
   const user = {
     name: document.getElementById("fullName").value,
@@ -36,7 +35,7 @@ submitBtn.addEventListener("click", function(){
     jobDetails: jobDetails.value,
     discord: document.getElementById("discord").value,
     mapId: document.getElementById("mapId").value,
-    status: "pending" // الحالة: في انتظار تفعيل الإدارة
+    status: "pending"
   };
 
   const fileInput = document.getElementById("idImage");
@@ -45,11 +44,11 @@ submitBtn.addEventListener("click", function(){
     reader.onload = function(){
       user.image = reader.result;
       localStorage.setItem("currentUser", JSON.stringify(user));
-      alert("تم إرسال طلب المراجعة، يرجى انتظار الموافقة من الإدارة");
+      alert("✅ تم إرسال طلب المراجعة، يرجى انتظار الموافقة من الإدارة");
     };
     reader.readAsDataURL(fileInput.files[0]);
   } else {
-    alert("الرجاء رفع صورة هويتك");
+    alert("⚠️ الرجاء رفع صورة هويتك");
   }
 });
 
@@ -57,5 +56,5 @@ submitBtn.addEventListener("click", function(){
 demoBtn.addEventListener("click", function(){
   const demoUser = { name:"تجريبي", status:"approved", image:"" };
   localStorage.setItem("currentUser", JSON.stringify(demoUser));
-  window.location.href = "main.html"; // يذهب للصفحة الرئيسية
+  window.location.href = "main.html";
 });
