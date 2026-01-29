@@ -1,95 +1,61 @@
-let requests = JSON.parse(localStorage.getItem("requests")) || [];
+const jobSelect = document.getElementById("job");
+const jobDetails = document.getElementById("jobDetails");
+const submitBtn = document.getElementById("submitBtn");
+const demoBtn = document.getElementById("demoBtn");
 
-// معاينة الصورة
-function previewImage(event) {
-  const preview = document.getElementById("preview");
-  const file = event.target.files[0];
-  if (!file) return;
+// خيارات كل وزارة
+const jobOptions = {
+  "وزارة الداخلية": ["جندي","جندي أول","عريف","وكيل رقيب","رقيب","رقيب أول","رئيس رقباء","ملازم","ملازم أول","نقيب","رائد","مقدم","عقيد","عميد","لواء","فريق","فريق أول","نائب مدير الأمن العام","مدير الأمن العام","نائب وزير الداخلية","وزير الداخلية"],
+  "وزارة الصحة": ["مسعف","دكتور عام","دكتور","دكتور متمرس","طبيب عام","استشاري","مدرب صحي","أخصائي","منسوبي الهلال الأحمر","مسؤول مدربين الصحة","نائب مسؤول مدربين الصحة","نائب مسؤول الهلال الأحمر","مسؤول الهلال الأحمر","جراح","جراح مساعد","إدارة الشؤون الصحية","نائب وزير الصحة","وزير الصحة","مدير مستشفى","نائب مدير مستشفى"],
+  "وزارة العدل": ["قاضي","قاضي متمرس","محامي","محامي متمرس","قاضي محكمة عليا","إدارة الشؤون العدلية","مستشار وزير العدل","نائب وزير العدل","وزير العدل"]
+};
 
-  const reader = new FileReader();
-  reader.onload = function () {
-    preview.src = reader.result;
-    preview.style.display = "block";
-  };
-  reader.readAsDataURL(file);
-}
-
-// الوظائف حسب المهنة
-const professionSelect = document.getElementById("profession");
-const roleSelect = document.getElementById("role");
-
-professionSelect.addEventListener("change", () => {
-  let roles = [];
-  if(professionSelect.value === "وزارة الداخلية"){
-    roles = ["جندي","جندي أول","عريف","وكيل رقيب","رقيب","رقيب أول","رئيس رقباء","ملازم","ملازم أول","نقيب","رائد","مقدم","عقيد","عميد","لواء","فريق","فريق أول","مدير الأمن العام","وزير الداخلية"];
-  }
-  if(professionSelect.value === "وزارة الصحة"){
-    roles = ["مسعف","دكتور","استشاري","جراح","إدارة الشؤون الصحية","وزير الصحة","مدير مستشفى"];
-  }
-  if(professionSelect.value === "وزارة العدل"){
-    roles = ["قاضي","محامي","قاضي محكمة عليا","نائب وزير العدل","وزير العدل"];
-  }
-
-  if(roles.length > 0){
-    roleSelect.style.display = "block";
-    roleSelect.innerHTML = "<option value=''>اختر الوظيفة</option>";
-    roles.forEach(r => {
-      const opt = document.createElement("option");
-      opt.value = r;
-      opt.textContent = r;
-      roleSelect.appendChild(opt);
+// تغيير خيارات الوظائف حسب الوزارة
+jobSelect.addEventListener("change", function(){
+  const selected = this.value;
+  jobDetails.innerHTML = '<option value="">اختر الوظيفة</option>';
+  if(jobOptions[selected]){
+    jobOptions[selected].forEach(opt=>{
+      const option = document.createElement("option");
+      option.value = opt;
+      option.textContent = opt;
+      jobDetails.appendChild(option);
     });
+    jobDetails.classList.remove("hidden");
   } else {
-    roleSelect.style.display = "none";
-    roleSelect.innerHTML = "";
+    jobDetails.classList.add("hidden");
   }
 });
 
-// إرسال طلب التفعيل
-function submitRequest(){
-  const fullName = document.getElementById("fullName").value.trim();
-  const age = document.getElementById("age").value.trim();
-  const userID = document.getElementById("userID").value.trim();
-  const discord = document.getElementById("discordUsername").value.trim();
-  const pic = document.getElementById("profilePic").files[0];
-  const err = document.getElementById("err");
-
-  if(!fullName || !age || !userID || !discord || !pic || !professionSelect.value){
-    err.style.display="block";
-    err.innerText="يرجى تعبئة جميع الحقول ورفع الصورة";
-    setTimeout(()=>err.style.display="none",3000);
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload=function(){
-    requests.push({
-      id:userID,
-      name:fullName,
-      age,
-      discord,
-      profession:professionSelect.value,
-      role:roleSelect.value||"",
-      image:reader.result,
-      status:"pending"
-    });
-    localStorage.setItem("requests",JSON.stringify(requests));
-    window.location.href="confirmation.html";
+// زر طلب تفعيل الهوية
+submitBtn.addEventListener("click", function(){
+  const user = {
+    name: document.getElementById("fullName").value,
+    age: document.getElementById("age").value,
+    job: jobSelect.value,
+    jobDetails: jobDetails.value,
+    discord: document.getElementById("discord").value,
+    mapId: document.getElementById("mapId").value,
+    status: "pending" // الحالة: في انتظار تفعيل الإدارة
   };
-  reader.readAsDataURL(pic);
-}
 
-// دخول تجريبي سريع للجوال والكمبيوتر
-const demoBtn = document.getElementById("demoBtn");
-if(demoBtn){
-    demoBtn.addEventListener("click",function(){
-        localStorage.setItem("currentUser", JSON.stringify({
-            id:"30283619",
-            name:"Owner",
-            profession:"Admin",
-            role:"Admin-2",
-            status:"approved"
-        }));
-        window.location.href="main.html";
-    });
-}
+  const fileInput = document.getElementById("idImage");
+  if(fileInput.files.length > 0){
+    const reader = new FileReader();
+    reader.onload = function(){
+      user.image = reader.result;
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      alert("تم إرسال طلب المراجعة، يرجى انتظار الموافقة من الإدارة");
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+  } else {
+    alert("الرجاء رفع صورة هويتك");
+  }
+});
+
+// تسجيل الدخول التجريبي
+demoBtn.addEventListener("click", function(){
+  const demoUser = { name:"تجريبي", status:"approved", image:"" };
+  localStorage.setItem("currentUser", JSON.stringify(demoUser));
+  window.location.href = "main.html"; // يذهب للصفحة الرئيسية
+});
