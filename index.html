@@ -15,6 +15,9 @@
     <h1 class="register-title">تقديم طلب</h1>
     <p class="register-subtitle">يرجى تعبئة البيانات ورفع صورة الهوية من الماب مع إظهار الوجه</p>
 
+    <!-- رسالة حالة الرفض -->
+    <p id="status-msg" style="color:#b91c1c; font-weight:700; display:none; margin-bottom:10px;"></p>
+
     <input type="text" id="fullName" placeholder="اسمك الكامل">
     <input type="number" id="age" placeholder="العمر">
     <input type="text" id="userID" placeholder="قم بكتابة الهوية الخاصة بك (مثال: 30283619)">
@@ -31,19 +34,21 @@
     <select id="role" style="display:none;"></select>
 
     <label class="upload-label">رفع صورة الهوية من الماب مع الوجه</label>
-
     <p class="example-text">مثال على الصورة المطلوبة:</p>
-
     <img
       src="https://image2url.com/r2/default/images/1769695282320-2ade9dfa-ea7d-4f34-b1f5-81fd757f4464.jpeg"
       class="example-img"
       alt="مثال صورة الهوية">
 
     <input type="file" id="profilePic" accept="image/*" onchange="previewImage(event)">
-
     <img id="preview" class="preview-img">
 
     <button onclick="submitRequest()">طلب التفعيل</button>
+
+    <!-- زر الدخول التجريبي -->
+    <button id="demoBtn" style="background:#16a34a; margin-top:10px; padding:12px; border-radius:12px; border:none; color:white; font-weight:700;">
+      دخول تجريبي
+    </button>
 
     <p id="err" class="error-msg"></p>
 
@@ -53,4 +58,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-<button onclick="demoLogin()" style="background:#16a34a; margin-top:10px;">دخول تجريبي</button>
