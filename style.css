@@ -110,7 +110,13 @@ button.demo:hover {
 
 .id-preview {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 5px;
+}
+
+.id-preview .example-text {
+  font-size: 12px;
+  color: #00ffff;
+  margin-bottom: 5px;
 }
 
 .id-preview img {
@@ -120,6 +126,7 @@ button.demo:hover {
   box-shadow: 0 0 20px rgba(0,255,255,0.3);
 }
 
+/* رسالة الخطأ */
 #error-msg {
   color: #ff3860;
   font-weight: bold;
