@@ -1,82 +1,60 @@
-const roleCards = document.querySelectorAll("#roleCards .card");
-const rankStep = document.getElementById("rankStep");
-const adminStep = document.getElementById("adminStep");
-const rankCards = document.getElementById("rankCards");
-const adminCards = document.getElementById("adminCards");
-const idUploadStep = document.getElementById("idUploadStep");
+const jobSelect = document.getElementById("job");
+const jobDetails = document.getElementById("jobDetails");
 const submitBtn = document.getElementById("submitBtn");
-const message = document.getElementById("message");
+const demoBtn = document.getElementById("demoBtn");
 
-let selectedRole = null;
-
-// الرتب
-const ranks = {
-  interior: ["جندي","جندي أول","عريف","وكيل رقيب","رقيب","رقيب أول","رئيس رقباء"],
-  health: ["مسعف","دكتور عام","دكتور","استشاري","جراح"],
-  justice: ["محامي","محامي متمرس","قاضي","قاضي محكمة عليا"]
+const jobOptions = {
+  "وزارة الداخلية": ["جندي","جندي أول","عريف","وكيل رقيب","رقيب","رقيب أول","رئيس رقباء","ملازم","ملازم أول","نقيب","رائد","مقدم","عقيد","عميد","لواء","فريق","فريق أول","نائب مدير الأمن العام","مدير الأمن العام","نائب وزير الداخلية","وزير الداخلية"],
+  "وزارة الصحة": ["مسعف","دكتور عام","دكتور","دكتور متمرس","طبيب عام","استشاري","مدرب صحي","أخصائي","منسوبي الهلال الأحمر","مسؤول مدربين الصحة","نائب مسؤول مدربين الصحة","نائب مسؤول الهلال الأحمر","مسؤول الهلال الأحمر","جراح","جراح مساعد","إدارة الشؤون الصحية","نائب وزير الصحة","وزير الصحة","مدير مستشفى","نائب مدير مستشفى"],
+  "وزارة العدل": ["قاضي","قاضي متمرس","محامي","محامي متمرس","قاضي محكمة عليا","إدارة الشؤون العدلية","مستشار وزير العدل","نائب وزير العدل","وزير العدل"]
 };
 
-// المناصب الإدارية
-const admins = {
-  interior: ["إدارة القبول والتجنيد","إدارة شؤون الداخلية","إدارة شؤون الأفراد","سلك الضباط"],
-  health: ["إدارة القبول والتسجيل","إدارة الشؤون الصحية","مسؤول الشؤون الصحية","إدارة متطوعين الهلال الأحمر","إدارة الشكاوي","إدارة الكلية الصحية"],
-  justice: ["إدارة القبول والتسجيل","إدارة الشكاوي","إدارة الشؤون العدلية"]
-};
-
-// اختيار الوظيفة
-roleCards.forEach(card=>{
-  card.addEventListener("click", ()=>{
-    roleCards.forEach(c=>c.classList.remove("active"));
-    card.classList.add("active");
-
-    selectedRole = card.dataset.role;
-    rankCards.innerHTML = "";
-    adminCards.innerHTML = "";
-    adminStep.classList.add("hidden");
-    idUploadStep.classList.add("hidden");
-
-    if(selectedRole === "citizen") return;
-
-    rankStep.classList.remove("hidden");
-    ranks[selectedRole].forEach(rank=>{
-      const div = document.createElement("div");
-      div.className = "card";
-      div.textContent = rank;
-      div.addEventListener("click", ()=>{
-        rankCards.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
-        div.classList.add("active");
-        loadAdmins();
-      });
-      rankCards.appendChild(div);
+// عرض خيارات كل وزارة
+jobSelect.addEventListener("change", function(){
+  const selected = this.value;
+  jobDetails.innerHTML = '<option value="">اختر الوظيفة</option>';
+  if(jobOptions[selected]){
+    jobOptions[selected].forEach(opt=>{
+      const option = document.createElement("option");
+      option.value = opt;
+      option.textContent = opt;
+      jobDetails.appendChild(option);
     });
-  });
+    jobDetails.classList.remove("hidden");
+  } else {
+    jobDetails.classList.add("hidden");
+  }
 });
 
-// تحميل المناصب الإدارية
-function loadAdmins(){
-  adminCards.innerHTML = "";
-  adminStep.classList.remove("hidden");
-  idUploadStep.classList.remove("hidden");
+// طلب تفعيل الهوية
+submitBtn.addEventListener("click", function(){
+  const user = {
+    name: document.getElementById("fullName").value,
+    age: document.getElementById("age").value,
+    job: jobSelect.value,
+    jobDetails: jobDetails.value,
+    discord: document.getElementById("discord").value,
+    mapId: document.getElementById("mapId").value,
+    status: "pending"
+  };
 
-  admins[selectedRole].forEach(admin=>{
-    const div = document.createElement("div");
-    div.className = "card";
-    div.textContent = admin;
-    div.addEventListener("click", ()=>div.classList.toggle("active"));
-    adminCards.appendChild(div);
-  });
-}
-
-// التحقق من رفع الهوية
-submitBtn.addEventListener("click", ()=>{
   const fileInput = document.getElementById("idImage");
-  if(fileInput.files.length===0){
-    message.textContent = "⚠️ يرجى رفع صورة الهوية مع الوجه!";
-    message.classList.remove("hidden");
-    setTimeout(()=>message.classList.add("hidden"),4000);
-    return;
+  if(fileInput.files.length > 0){
+    const reader = new FileReader();
+    reader.onload = function(){
+      user.image = reader.result;
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      alert("✅ تم إرسال طلب المراجعة، يرجى انتظار الموافقة من الإدارة");
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+  } else {
+    alert("⚠️ الرجاء رفع صورة هويتك");
   }
-  message.textContent = "تم تقديم طلب تفعيل الهوية بنجاح!";
-  message.classList.remove("hidden");
-  setTimeout(()=>message.classList.add("hidden"),4000);
+});
+
+// تسجيل الدخول التجريبي
+demoBtn.addEventListener("click", function(){
+  const demoUser = { name:"تجريبي", status:"approved", image:"" };
+  localStorage.setItem("currentUser", JSON.stringify(demoUser));
+  window.location.href = "main.html";
 });
