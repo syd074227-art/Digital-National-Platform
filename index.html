@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تقديم طلب - الحكومة الرقمية KR</title>
+<title>تقديم طلب – الحكومة الرقمية KR</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -11,13 +11,14 @@
 
 <div class="register-container">
   <div class="register-card">
-    <h1 class="register-title">تقديم طلب تفعيل</h1>
-    <p class="register-subtitle">يرجى تعبئة معلوماتك ورفع صورة الهُوية من الماب</p>
+
+    <h1 class="register-title">تقديم طلب</h1>
+    <p class="register-subtitle">يرجى تعبئة البيانات ورفع صورة الهوية من الماب مع إظهار الوجه</p>
 
     <input type="text" id="fullName" placeholder="اسمك الكامل">
     <input type="number" id="age" placeholder="العمر">
-    <input type="text" id="userID" placeholder="قم بكتابة الهُوية الخاصة بك (مثال: 30283619)">
-    <input type="text" id="discordUsername" placeholder="اسم المستخدم الخاص بك في Discord">
+    <input type="text" id="userID" placeholder="قم بكتابة الهوية الخاصة بك (مثال: 30283619)">
+    <input type="text" id="discordUsername" placeholder="اسم المستخدم الخاص بك في الديسكورد">
 
     <select id="profession">
       <option value="">اختر المهنة</option>
@@ -29,13 +30,23 @@
 
     <select id="role" style="display:none;"></select>
 
-    <label for="profilePic" class="upload-label">رفع صورة الهُوية من الماب مع الوجه</label>
+    <label class="upload-label">رفع صورة الهوية من الماب مع الوجه</label>
+
+    <p class="example-text">مثال على الصورة المطلوبة:</p>
+
+    <img
+      src="https://image2url.com/r2/default/images/1769695282320-2ade9dfa-ea7d-4f34-b1f5-81fd757f4464.jpeg"
+      class="example-img"
+      alt="مثال صورة الهوية">
+
     <input type="file" id="profilePic" accept="image/*" onchange="previewImage(event)">
-    <img id="preview" src="" alt="معاينة الصورة" style="display:none; width:120px; height:120px; border-radius:12px; margin-bottom:10px;">
+
+    <img id="preview" class="preview-img">
 
     <button onclick="submitRequest()">طلب التفعيل</button>
 
     <p id="err" class="error-msg"></p>
+
   </div>
 </div>
 
