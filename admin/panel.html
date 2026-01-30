@@ -3,150 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم الإدارية</title>
+    <title>مركز العمليات الإداري | البحث المتقدم</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1e3a8a; --gold: #b8860b; --dark: #0f172a;
-            --success: #059669; --danger: #dc2626; --bg: #f8fafc;
+            --bg-dark: #070714;
+            --accent-purple: #7b61ff;
+            --success: #00ff88;
+            --danger: #ff3e3e;
+            --glass: rgba(255, 255, 255, 0.03);
         }
-        body { margin: 0; background: var(--bg); font-family: 'Segoe UI', sans-serif; }
-        
-        /* Navbar */
-        .header { background: var(--primary); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-logout { background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
 
-        /* Stats Section */
-        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
-        .stat-box { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-        .stat-box h3 { margin: 0; font-size: 24px; color: var(--primary); }
-        .stat-box p { margin: 5px 0 0; color: #64748b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg-dark); color: white; min-height: 100vh; display: flex; overflow-x: hidden; }
 
-        /* Table Section */
-        .content { padding: 20px; }
-        .table-card { background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; }
-        th { background: #f1f5f9; padding: 15px; text-align: right; color: var(--primary); }
-        td { padding: 15px; border-top: 1px solid #f1f5f9; }
-        
-        /* Badges */
-        .badge { padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
-        .status-pending { background: #fef3c7; color: #d97706; }
-        .status-approved { background: #dcfce7; color: #16a34a; }
-        .status-rejected { background: #fee2e2; color: #dc2626; }
+        /* Sidebar & Layout */
+        .sidebar { width: 280px; background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); border-left: 1px solid rgba(255,255,255,0.1); padding: 30px 20px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+        .main-content { flex: 1; padding: 40px; }
 
-        /* Action Buttons */
-        .actions { display: flex; gap: 5px; }
-        .btn-act { border: none; width: 35px; height: 35px; border-radius: 5px; cursor: pointer; color: white; }
-        .btn-check { background: var(--success); }
-        .btn-cancel { background: var(--danger); }
+        /* Smart Search Area */
+        .search-bar-container { background: var(--glass); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px; display: flex; gap: 15px; align-items: center; }
+        .search-input { flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(123, 97, 255, 0.2); padding: 12px 20px; border-radius: 12px; color: white; outline: none; transition: 0.3s; }
+        .search-input:focus { border-color: var(--accent-purple); box-shadow: 0 0 15px rgba(123,97,255,0.2); }
         
-        @media (max-width: 768px) { .stats-container { grid-template-columns: 1fr 1fr; } table { font-size: 12px; } }
+        .filter-btn { padding: 10px 18px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: #a0a0c0; cursor: pointer; transition: 0.3s; font-size: 13px; }
+        .filter-btn.active { background: var(--accent-purple); color: white; border-color: var(--accent-purple); }
+
+        /* Renew ID Button */
+        .btn-renew { background: linear-gradient(135deg, #7b61ff, #5a44cc); border: none; padding: 12px 25px; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; transition: 0.3s; margin-bottom: 20px; width: 100%; }
+        .btn-renew:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(123,97,255,0.4); }
+
+        /* Modal Structure (Renew ID) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-card { width: 450px; background: #16162a; border: 1px solid var(--accent-purple); border-radius: 25px; padding: 35px; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.5); position: relative; }
+        .close-modal { position: absolute; top: 20px; left: 20px; cursor: pointer; color: #666; font-size: 20px; }
+
+        /* Table */
+        .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { text-align: right; padding: 18px; color: var(--accent-purple); border-bottom: 2px solid rgba(123,97,255,0.1); }
+        td { padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        tr:hover { background: rgba(255,255,255,0.01); }
+
+        .btn-act { padding: 8px; border-radius: 8px; border: none; cursor: pointer; color: white; margin-left: 5px; transition: 0.3s; }
+        .btn-approve { background: rgba(0, 255, 136, 0.15); color: var(--success); }
+        .btn-reject { background: rgba(255, 62, 62, 0.15); color: var(--danger); }
+
+        #renew-result { margin-top: 20px; padding: 15px; border-radius: 10px; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="logo"><h2>لوحة الإدارة الملكية</h2></div>
-        <button class="btn-logout" onclick="logout()">تسجيل الخروج</button>
+    <div class="sidebar">
+        <h2 style="color: var(--accent-purple); text-align: center; margin-bottom: 30px;">نظام السيطرة</h2>
+        <button class="btn-renew" onclick="openRenewModal()"><i class="fas fa-sync-alt"></i> تجديد هوية فورية</button>
+        <div class="nav-item active" style="padding: 15px; border-radius: 12px; background: rgba(123,97,255,0.1); color: white;"><i class="fas fa-home"></i> الرئيسية</div>
     </div>
 
-    <div class="stats-container">
-        <div class="stat-box"><h3 id="stat-total">0</h3><p>إجمالي الطلبات</p></div>
-        <div class="stat-box"><h3 id="stat-pending" style="color:orange">0</h3><p>قيد المراجعة</p></div>
-        <div class="stat-box"><h3 id="stat-approved" style="color:green">0</h3><p>مقبولة</p></div>
-        <div class="stat-box"><h3 id="stat-rejected" style="color:red">0</h3><p>مرفوضة</p></div>
-    </div>
+    <div class="main-content">
+        <div class="search-bar-container">
+            <i class="fas fa-search" style="color: var(--accent-purple);"></i>
+            <input type="text" id="smartSearch" class="search-input" placeholder="بحث ذكي بالاسم، الرقم، أو الوظيفة..." onkeyup="filterTable()">
+            <button class="filter-btn active" onclick="setFilter('all', this)">الكل</button>
+            <button class="filter-btn" onclick="setFilter('pending', this)">المعلق</button>
+            <button class="filter-btn" onclick="setFilter('approved', this)">المقبول</button>
+        </div>
 
-    <div class="content">
-        <div class="table-card">
-            <table>
+        <div style="background: var(--glass); border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); padding: 25px;">
+            <table class="data-table">
                 <thead>
                     <tr>
-                        <th>رقم الطلب</th>
+                        <th>ID</th>
                         <th>الاسم</th>
-                        <th>الهوية</th>
                         <th>الوظيفة</th>
                         <th>الحالة</th>
-                        <th>الإجراءات</th>
+                        <th>العمليات</th>
                     </tr>
                 </thead>
-                <tbody id="requestsTableBody">
-                    </tbody>
+                <tbody id="adminTableBody"></tbody>
             </table>
         </div>
     </div>
 
+    <div class="modal-overlay" id="renewModal">
+        <div class="modal-card">
+            <i class="fas fa-times close-modal" onclick="closeRenewModal()"></i>
+            <i class="fas fa-id-card-clip" style="font-size: 50px; color: var(--accent-purple); margin-bottom: 20px;"></i>
+            <h3>نظام تجديد الهويات الرقمية</h3>
+            <p style="color: #a0a0c0; font-size: 13px; margin: 10px 0 25px;">أدخل رقم الهوية للتحقق الفوري</p>
+            
+            <input type="number" id="idToRenew" class="search-input" style="text-align: center;" placeholder="10001">
+            <button class="btn-renew" style="margin-top: 15px;" onclick="checkIDForRenew()">بدء التحقق من السجلات</button>
+
+            <div id="renew-result"></div>
+        </div>
+    </div>
+
     <script>
-        // 1. حماية الصفحة
-        if (localStorage.getItem('admin_session') !== 'active') { window.location.href = 'login.html'; }
+        let currentFilter = 'all';
+        let allRequests = JSON.parse(localStorage.getItem('user_applications') || '[]');
 
-        // 2. إدارة البيانات
-        let allRequests = [];
-
-        function loadData() {
-            // جلب البيانات من المفتاح المشترك مع صفحة التقديم
-            const stored = localStorage.getItem('user_applications') || '[]';
-            allRequests = JSON.parse(stored);
-            renderTable();
-            updateStats();
-        }
-
-        function renderTable() {
-            const tbody = document.getElementById('requestsTableBody');
+        function renderTable(data = allRequests) {
+            const tbody = document.getElementById('adminTableBody');
             tbody.innerHTML = '';
+            
+            const filtered = data.filter(item => currentFilter === 'all' || item.status === currentFilter);
 
-            if(allRequests.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center">لا توجد طلبات واردة</td></tr>';
-                return;
-            }
-
-            allRequests.forEach((req, index) => {
+            filtered.reverse().forEach((item, index) => {
                 tbody.innerHTML += `
                     <tr>
-                        <td>#${req.id}</td>
-                        <td>${req.name}</td>
-                        <td>${req.gameId}</td>
-                        <td>${req.jobName || 'مواطن'}</td>
-                        <td><span class="badge status-${req.status}">${getStatusAr(req.status)}</span></td>
+                        <td style="font-family: monospace; color: var(--accent-purple);">#${item.gameId}</td>
+                        <td>${item.name}</td>
+                        <td>${item.jobName}</td>
+                        <td><span style="color: ${item.status==='approved'?'#00ff88':'#ff9900'}">${item.status==='approved'?'مفعل':'معلق'}</span></td>
                         <td>
-                            <div class="actions">
-                                <button class="btn-act btn-check" onclick="updateStatus(${index}, 'approved')"><i class="fas fa-check"></i></button>
-                                <button class="btn-act btn-cancel" onclick="updateStatus(${index}, 'rejected')"><i class="fas fa-times"></i></button>
-                            </div>
+                            <button class="btn-act btn-approve" onclick="actionApp('${item.id}', 'approved')"><i class="fas fa-check"></i></button>
+                            <button class="btn-act btn-reject" onclick="actionApp('${item.id}', 'rejected')"><i class="fas fa-times"></i></button>
                         </td>
                     </tr>
                 `;
             });
         }
 
-        function updateStatus(index, newStatus) {
-            allRequests[index].status = newStatus;
-            localStorage.setItem('user_applications', JSON.stringify(allRequests));
-            loadData();
+        // البحث الذكي
+        function filterTable() {
+            const query = document.getElementById('smartSearch').value.toLowerCase();
+            const filteredData = allRequests.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.gameId.toString().includes(query) ||
+                item.jobName.toLowerCase().includes(query)
+            );
+            renderTable(filteredData);
         }
 
-        function updateStats() {
-            document.getElementById('stat-total').innerText = allRequests.length;
-            document.getElementById('stat-pending').innerText = allRequests.filter(r => r.status === 'pending').length;
-            document.getElementById('stat-approved').innerText = allRequests.filter(r => r.status === 'approved').length;
-            document.getElementById('stat-rejected').innerText = allRequests.filter(r => r.status === 'rejected').length;
+        function setFilter(f, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = f;
+            renderTable();
         }
 
-        function getStatusAr(s) {
-            const map = { 'pending': 'معلق', 'approved': 'مقبول', 'rejected': 'مرفوض' };
-            return map[s] || s;
+        // نظام التجديد
+        function openRenewModal() { document.getElementById('renewModal').style.display = 'flex'; }
+        function closeRenewModal() { 
+            document.getElementById('renewModal').style.display = 'none';
+            document.getElementById('renew-result').style.display = 'none';
         }
 
-        function logout() {
-            localStorage.removeItem('admin_session');
-            window.location.href = 'login.html';
+        function checkIDForRenew() {
+            const idInput = document.getElementById('idToRenew').value;
+            const resDiv = document.getElementById('renew-result');
+            const citizen = allRequests.find(r => r.gameId == idInput);
+
+            resDiv.style.display = 'block';
+            if (citizen) {
+                resDiv.style.background = 'rgba(0, 255, 136, 0.1)';
+                resDiv.style.color = '#00ff88';
+                resDiv.innerHTML = `<i class="fas fa-check-circle"></i> تم العثور على الهوية: <b>${citizen.name}</b><br><small>جاري تحديث التاريخ وتجديد الصلاحية...</small>`;
+                
+                // تحديث الحالة لتجديدها فعلياً
+                citizen.status = 'approved';
+                citizen.date = new Date().toLocaleDateString('ar-SA');
+                localStorage.setItem('user_applications', JSON.stringify(allRequests));
+                setTimeout(() => { renderTable(); closeRenewModal(); }, 2000);
+            } else {
+                resDiv.style.background = 'rgba(255, 62, 62, 0.1)';
+                resDiv.style.color = '#ff3e3e';
+                resDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> رقم الهوية غير موجود في السجلات!`;
+            }
         }
 
-        // تحميل البيانات عند البدء
-        loadData();
-        // تحديث تلقائي كل دقيقة
-        setInterval(loadData, 60000);
+        function actionApp(id, status) {
+            const index = allRequests.findIndex(a => a.id == id);
+            if(index !== -1) {
+                allRequests[index].status = status;
+                localStorage.setItem('user_applications', JSON.stringify(allRequests));
+                renderTable();
+            }
+        }
+
+        renderTable();
     </script>
 </body>
 </html>
