@@ -3,228 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الإدارة | تسجيل الدخول</title>
+    <title>بوابة الأنظمة الإدارية | حماية سيادية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-color: #1a1a2e;
-            --card-bg: rgba(255, 255, 255, 0.05);
+            --bg-deep: #0f0c29;
             --accent-purple: #7b61ff;
-            --text-gray: #a0a0c0;
-            --error-red: #ff4d4d;
+            --error-red: #ff3e3e;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
         body {
-            background: radial-gradient(circle at top right, #25254d, #1a1a2e);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            color: white;
+            background: radial-gradient(circle at center, #24243e, #0f0c29);
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; color: white;
         }
 
         /* الحاوية الرئيسية */
         .login-card {
-            width: 400px;
-            padding: 40px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            width: 420px; padding: 45px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            text-align: center;
-            position: relative;
+            border-radius: 35px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            text-align: center; position: relative;
         }
 
-        /* الأيقونة العلوية */
-        .icon-container {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, #9d88ff, #7b61ff);
-            border-radius: 25px;
-            margin: 0 auto 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 20px rgba(123, 97, 255, 0.3);
+        .icon-box {
+            width: 85px; height: 85px; background: linear-gradient(135deg, #9d88ff, #7b61ff);
+            border-radius: 22px; margin: 0 auto 25px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 15px 30px rgba(123, 97, 255, 0.3);
         }
 
-        .icon-container i { font-size: 40px; color: white; }
+        h2 { font-size: 26px; margin-bottom: 8px; letter-spacing: 1px; }
+        .subtitle { color: #a0a0c0; font-size: 14px; margin-bottom: 35px; }
 
-        h2 { font-size: 28px; margin-bottom: 5px; font-weight: 600; }
-        p.subtitle { color: var(--text-gray); font-size: 14px; margin-bottom: 40px; }
-
-        /* حقول الإدخال */
-        .input-group { text-align: right; margin-bottom: 20px; position: relative; }
-        .input-group label { display: block; margin-bottom: 8px; font-size: 14px; color: white; display: flex; align-items: center; gap: 8px; }
-        .input-group label i { color: var(--accent-purple); font-size: 12px; }
-
+        .input-group { text-align: right; margin-bottom: 22px; }
+        .input-group label { display: block; margin-bottom: 10px; font-size: 13px; color: #ccc; }
+        
         input {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            color: white;
-            outline: none;
-            transition: 0.3s;
-            font-size: 16px;
+            width: 100%; padding: 16px 20px; background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px;
+            color: white; outline: none; transition: 0.4s; font-size: 15px;
         }
 
-        input:focus { border-color: var(--accent-purple); background: rgba(255, 255, 255, 0.08); }
+        input:focus { border-color: var(--accent-purple); background: rgba(0,0,0,0.4); }
 
-        /* شريط الحماية الأخضر */
-        .security-info {
-            background: rgba(0, 255, 136, 0.05);
-            border: 1px solid rgba(0, 255, 136, 0.1);
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 13px;
-            color: #00ff88;
+        .btn-login {
+            width: 100%; padding: 18px; background: linear-gradient(90deg, #8e7aff, #6a4dff);
+            border: none; border-radius: 18px; color: white; font-weight: bold;
+            font-size: 17px; cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
         }
 
-        /* زر الدخول */
-        .login-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(90deg, #8e7aff, #6a4dff);
-            border: none;
-            border-radius: 18px;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: 0.3s;
+        /* نظام التنبيه الفخم (SnackBar) */
+        #alertBox {
+            position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 62, 62, 0.15); backdrop-filter: blur(10px);
+            border: 1px solid var(--error-red); color: white;
+            padding: 15px 30px; border-radius: 50px; font-size: 14px;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000; display: flex; align-items: center; gap: 10px;
         }
 
-        .login-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(106, 77, 255, 0.4); }
-        .login-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+        #alertBox.show { bottom: 40px; }
 
-        /* شاشة الحظر */
-        #lockoutOverlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #1a1a2e;
-            border-radius: 30px;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
+        /* شاشة الحظر الشاملة */
+        .lock-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 10, 30, 0.95); border-radius: 35px;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 99; animation: fadeIn 0.5s ease;
         }
 
-        #lockoutOverlay i { font-size: 50px; color: var(--error-red); margin-bottom: 20px; }
-        .timer-val { font-family: monospace; font-size: 32px; color: white; margin: 15px 0; letter-spacing: 2px; }
+        .lock-overlay i { font-size: 60px; color: var(--error-red); margin-bottom: 15px; }
+        .lock-timer { font-family: 'Courier New', monospace; font-size: 38px; color: #fff; margin: 15px 0; }
 
-        .shake { animation: shake 0.5s ease-in-out; }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .shake { animation: shake 0.4s ease-in-out; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
     </style>
 </head>
 <body>
 
-    <div class="login-card" id="card">
-        <div id="lockoutOverlay">
+    <div class="login-card" id="loginCard">
+        <div class="lock-overlay" id="lockOverlay">
             <i class="fas fa-user-lock"></i>
-            <h3 style="color: var(--error-red);">تم اكتشاف محاولات فاشلة</h3>
-            <p style="font-size: 13px; opacity: 0.7;">حاول مجدداً بعد:</p>
-            <div class="timer-val" id="countdown">15:00:00</div>
+            <h3 style="color: var(--error-red);">النظام في حالة إغلاق أمني</h3>
+            <p style="font-size: 12px; opacity: 0.6; margin-top: 5px;">تم رصد محاولات دخول متكررة فاشلة</p>
+            <div class="lock-timer" id="timer">15:00:00</div>
+            <p style="font-size: 11px; color: var(--accent-purple);">يرجى المحاولة بعد انقضاء المهلة</p>
         </div>
 
-        <div class="icon-container">
-            <i class="fas fa-user-shield"></i>
-        </div>
-
-        <h2>نظام الإدارة</h2>
-        <p class="subtitle">مرحباً بعودتك، المسؤول</p>
+        <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+        <h2>بوابة الأنظمة الإدارية</h2>
+        <p class="subtitle">تخضع هذه البوابة للرقابة الأمنية المشددة</p>
 
         <div class="input-group">
-            <label><i class="fas fa-user"></i> اسم المستخدم</label>
-            <input type="text" id="username" placeholder="adm.r">
+            <label>معرف المسؤول</label>
+            <input type="text" id="user" placeholder="adm.r">
         </div>
 
         <div class="input-group">
-            <label><i class="fas fa-lock"></i> كلمة المرور</label>
-            <input type="password" id="password" placeholder="أدخل كلمة المرور">
+            <label>رمز الوصول</label>
+            <input type="password" id="pass" placeholder="••••••••">
         </div>
 
-        <div class="security-info">
-            <i class="fas fa-shield-check"></i>
-            نظام آمن باستخدام تشفير متقدم
-        </div>
+        <button class="btn-login" onclick="validate()">تسجيل الدخول <i class="fas fa-arrow-left"></i></button>
+    </div>
 
-        <button class="login-btn" onclick="handleLogin()" id="loginBtn">
-            تسجيل الدخول <i class="fas fa-arrow-left"></i>
-        </button>
+    <div id="alertBox">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span id="alertMsg">خطأ في البيانات</span>
     </div>
 
     <script>
         let attempts = 0;
-        const LOCK_TIME = 15 * 60 * 60 * 1000; // 15 ساعة
+        const LOCK_DURATION = 15 * 60 * 60 * 1000; // 15 ساعة
 
-        window.onload = checkLock;
+        window.onload = checkStatus;
 
-        function handleLogin() {
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
-            const card = document.getElementById('card');
+        function validate() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            const card = document.getElementById('loginCard');
 
-            // بيانات الدخول
-            if(user === "admin" && pass === "123456") {
+            if(u === "admin" && p === "123456") {
                 localStorage.setItem('admin_session', 'active');
                 window.location.href = 'panel.html';
             } else {
                 attempts++;
                 card.classList.add('shake');
-                setTimeout(() => card.classList.remove('shake'), 500);
+                setTimeout(() => card.classList.remove('shake'), 400);
 
                 if(attempts >= 3) {
-                    const expiry = new Date().getTime() + LOCK_TIME;
+                    const expiry = new Date().getTime() + LOCK_DURATION;
                     localStorage.setItem('lock_expiry', expiry);
-                    checkLock();
+                    checkStatus();
                 } else {
-                    alert("بيانات خاطئة! محاولة " + attempts + " من 3");
+                    showNotice(`تم رصد خطأ! تبقى لك ${3 - attempts} محاولات قبل إغلاق النظام`);
                 }
             }
         }
 
-        function checkLock() {
+        function showNotice(msg) {
+            const box = document.getElementById('alertBox');
+            document.getElementById('alertMsg').innerText = msg;
+            box.classList.add('show');
+            setTimeout(() => box.classList.remove('show'), 4000); // تختفي بعد 4 ثواني
+        }
+
+        function checkStatus() {
             const expiry = localStorage.getItem('lock_expiry');
             if (expiry) {
                 const now = new Date().getTime();
                 if (now < expiry) {
-                    document.getElementById('lockoutOverlay').style.display = 'flex';
-                    startTimer(expiry);
-                } else {
-                    localStorage.removeItem('lock_expiry');
+                    document.getElementById('lockOverlay').style.display = 'flex';
+                    startCountdown(expiry);
                 }
             }
         }
 
-        function startTimer(expiry) {
-            const timerDiv = document.getElementById('countdown');
-            const interval = setInterval(() => {
+        function startCountdown(expiry) {
+            const display = document.getElementById('timer');
+            const timer = setInterval(() => {
                 const now = new Date().getTime();
                 const diff = expiry - now;
 
                 if (diff <= 0) {
-                    clearInterval(interval);
+                    clearInterval(timer);
+                    localStorage.removeItem('lock_expiry');
                     location.reload();
                     return;
                 }
@@ -233,10 +186,7 @@
                 const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-                timerDiv.innerText = 
-                    (h < 10 ? "0" : "") + h + ":" + 
-                    (m < 10 ? "0" : "") + m + ":" + 
-                    (s < 10 ? "0" : "") + s;
+                display.innerText = `${h < 10 ? '0' : ''}${h}:${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
             }, 1000);
         }
     </script>
