@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة الأنظمة الإدارية | نظام الحماية المتطور</title>
+    <title>نظام الإدارة | تسجيل الدخول</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-gold: #d4af37;
-            --deep-blue: #020617;
-            --neon-red: #ff0044;
-            --cyber-blue: #00d2ff;
+            --bg-color: #1a1a2e;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --accent-purple: #7b61ff;
+            --text-gray: #a0a0c0;
+            --error-red: #ff4d4d;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
 
         body {
-            background: var(--deep-blue);
+            background: radial-gradient(circle at top right, #25254d, #1a1a2e);
             height: 100vh;
-            width: 100vw;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -26,225 +26,199 @@
             color: white;
         }
 
-        /* خلفية الفيديو أو الأنيميشن الرقمي */
-        .cyber-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
-            z-index: -1;
-        }
-
-        .cyber-bg::after {
-            content: "";
-            position: absolute;
-            width: 200%; height: 200%;
-            background-image: 
-                linear-gradient(0deg, transparent 24%, rgba(212, 175, 55, 0.05) 25%, rgba(212, 175, 55, 0.05) 26%, transparent 27%, transparent 74%, rgba(212, 175, 55, 0.05) 75%, rgba(212, 175, 55, 0.05) 76%, transparent 77%, transparent),
-                linear-gradient(90deg, transparent 24%, rgba(212, 175, 55, 0.05) 25%, rgba(212, 175, 55, 0.05) 26%, transparent 27%, transparent 74%, rgba(212, 175, 55, 0.05) 75%, rgba(212, 175, 55, 0.05) 76%, transparent 77%, transparent);
-            background-size: 80px 80px;
-            animation: moveGrid 60s linear infinite;
-        }
-
-        @keyframes moveGrid { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
-
-        /* الشاشة الكاملة للنظام */
-        .system-container {
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .login-frame {
-            position: relative;
-            width: 500px;
-            padding: 60px;
-            background: rgba(0, 0, 0, 0.85);
-            border-top: 4px solid var(--primary-gold);
-            border-bottom: 4px solid var(--primary-gold);
-            box-shadow: 0 0 100px rgba(0,0,0,1), 0 0 20px rgba(212, 175, 55, 0.2);
+        /* الحاوية الرئيسية */
+        .login-card {
+            width: 400px;
+            padding: 40px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             text-align: center;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-
-        .logo-area i {
-            font-size: 80px;
-            color: var(--primary-gold);
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px var(--primary-gold));
-        }
-
-        h1 {
-            font-size: 24px;
-            letter-spacing: 4px;
-            margin-bottom: 40px;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-
-        .input-group {
             position: relative;
-            margin-bottom: 25px;
         }
 
-        .input-group i {
-            position: absolute;
-            right: 20px; top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-gold);
+        /* الأيقونة العلوية */
+        .icon-container {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #9d88ff, #7b61ff);
+            border-radius: 25px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(123, 97, 255, 0.3);
         }
+
+        .icon-container i { font-size: 40px; color: white; }
+
+        h2 { font-size: 28px; margin-bottom: 5px; font-weight: 600; }
+        p.subtitle { color: var(--text-gray); font-size: 14px; margin-bottom: 40px; }
+
+        /* حقول الإدخال */
+        .input-group { text-align: right; margin-bottom: 20px; position: relative; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 14px; color: white; display: flex; align-items: center; gap: 8px; }
+        .input-group label i { color: var(--accent-purple); font-size: 12px; }
 
         input {
             width: 100%;
-            padding: 18px 55px 18px 20px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             color: white;
-            font-size: 16px;
             outline: none;
             transition: 0.3s;
+            font-size: 16px;
         }
 
-        input:focus {
-            border-color: var(--cyber-blue);
-            background: rgba(0, 210, 255, 0.05);
+        input:focus { border-color: var(--accent-purple); background: rgba(255, 255, 255, 0.08); }
+
+        /* شريط الحماية الأخضر */
+        .security-info {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #00ff88;
         }
 
-        .enter-btn {
+        /* زر الدخول */
+        .login-btn {
             width: 100%;
-            padding: 20px;
-            background: transparent;
-            border: 1px solid var(--primary-gold);
-            color: var(--primary-gold);
+            padding: 16px;
+            background: linear-gradient(90deg, #8e7aff, #6a4dff);
+            border: none;
+            border-radius: 18px;
+            color: white;
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.5s;
-            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: 0.3s;
         }
 
-        .enter-btn:hover:not(:disabled) {
-            background: var(--primary-gold);
-            color: black;
-            box-shadow: 0 0 30px var(--primary-gold);
-        }
+        .login-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(106, 77, 255, 0.4); }
+        .login-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
 
-        /* لوحة الحظر */
-        .lockout-panel {
+        /* شاشة الحظر */
+        #lockoutOverlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
+            background: #1a1a2e;
+            border-radius: 30px;
             display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 10;
-            border: 2px solid var(--neon-red);
+            z-index: 100;
         }
 
-        .lockout-panel i { color: var(--neon-red); font-size: 60px; margin-bottom: 20px; }
-        .lockout-panel h2 { color: var(--neon-red); margin-bottom: 10px; }
-        .timer-display {
-            font-family: 'Courier New', monospace;
-            font-size: 35px;
-            color: white;
-            margin-top: 20px;
-            letter-spacing: 5px;
-        }
+        #lockoutOverlay i { font-size: 50px; color: var(--error-red); margin-bottom: 20px; }
+        .timer-val { font-family: monospace; font-size: 32px; color: white; margin: 15px 0; letter-spacing: 2px; }
 
-        .shake { animation: shake 0.5s ease; }
+        .shake { animation: shake 0.5s ease-in-out; }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="cyber-bg"></div>
-
-    <div class="system-container">
-        <div class="login-frame" id="mainFrame">
-            <div class="lockout-panel" id="lockoutScreen">
-                <i class="fas fa-user-slash"></i>
-                <h2>محاولة دخول غير مصرح بها</h2>
-                <p>تم اكتشاف محاولات دخول فاشلة متكررة</p>
-                <div class="timer-display" id="fullTimer">15:00:00</div>
-                <p style="margin-top:15px; font-size:12px; opacity:0.6;">يرجى مراجعة القسم التقني</p>
-            </div>
-
-            <div class="logo-area">
-                <i class="fas fa-crown"></i>
-            </div>
-            <h1>بوابة الأنظمة الإدارية</h1>
-            
-            <div class="input-group">
-                <i class="fas fa-user-shield"></i>
-                <input type="text" id="userInput" placeholder="معرف المسؤول">
-            </div>
-
-            <div class="input-group">
-                <i class="fas fa-unlock-alt"></i>
-                <input type="password" id="passInput" placeholder="رمز الوصول المسبق">
-            </div>
-
-            <button class="enter-btn" onclick="processLogin()">تأكيد الهوية</button>
+    <div class="login-card" id="card">
+        <div id="lockoutOverlay">
+            <i class="fas fa-user-lock"></i>
+            <h3 style="color: var(--error-red);">تم اكتشاف محاولات فاشلة</h3>
+            <p style="font-size: 13px; opacity: 0.7;">حاول مجدداً بعد:</p>
+            <div class="timer-val" id="countdown">15:00:00</div>
         </div>
+
+        <div class="icon-container">
+            <i class="fas fa-user-shield"></i>
+        </div>
+
+        <h2>نظام الإدارة</h2>
+        <p class="subtitle">مرحباً بعودتك، المسؤول</p>
+
+        <div class="input-group">
+            <label><i class="fas fa-user"></i> اسم المستخدم</label>
+            <input type="text" id="username" placeholder="adm.r">
+        </div>
+
+        <div class="input-group">
+            <label><i class="fas fa-lock"></i> كلمة المرور</label>
+            <input type="password" id="password" placeholder="أدخل كلمة المرور">
+        </div>
+
+        <div class="security-info">
+            <i class="fas fa-shield-check"></i>
+            نظام آمن باستخدام تشفير متقدم
+        </div>
+
+        <button class="login-btn" onclick="handleLogin()" id="loginBtn">
+            تسجيل الدخول <i class="fas fa-arrow-left"></i>
+        </button>
     </div>
 
     <script>
-        let failCount = 0;
-        const lockDuration = 15 * 60 * 60 * 1000; // 15 ساعة بالملي ثانية
+        let attempts = 0;
+        const LOCK_TIME = 15 * 60 * 60 * 1000; // 15 ساعة
 
-        // التحقق عند تحميل الصفحة إذا كان النظام محظوراً
-        window.onload = function() {
-            checkLockStatus();
-        };
+        window.onload = checkLock;
 
-        function processLogin() {
-            const user = document.getElementById('userInput').value;
-            const pass = document.getElementById('passInput').value;
-            const frame = document.getElementById('mainFrame');
+        function handleLogin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const card = document.getElementById('card');
 
+            // بيانات الدخول
             if(user === "admin" && pass === "123456") {
                 localStorage.setItem('admin_session', 'active');
                 window.location.href = 'panel.html';
             } else {
-                failCount++;
-                frame.classList.add('shake');
-                setTimeout(() => frame.classList.remove('shake'), 500);
+                attempts++;
+                card.classList.add('shake');
+                setTimeout(() => card.classList.remove('shake'), 500);
 
-                if(failCount >= 3) {
-                    const expiry = new Date().getTime() + lockDuration;
-                    localStorage.setItem('lockout_expiry', expiry);
-                    checkLockStatus();
+                if(attempts >= 3) {
+                    const expiry = new Date().getTime() + LOCK_TIME;
+                    localStorage.setItem('lock_expiry', expiry);
+                    checkLock();
                 } else {
-                    alert("خطأ في البيانات! تبقى لك " + (3 - failCount) + " محاولات.");
+                    alert("بيانات خاطئة! محاولة " + attempts + " من 3");
                 }
             }
         }
 
-        function checkLockStatus() {
-            const expiry = localStorage.getItem('lockout_expiry');
+        function checkLock() {
+            const expiry = localStorage.getItem('lock_expiry');
             if (expiry) {
                 const now = new Date().getTime();
                 if (now < expiry) {
-                    document.getElementById('lockoutScreen').style.display = 'flex';
-                    startGlobalTimer(expiry);
+                    document.getElementById('lockoutOverlay').style.display = 'flex';
+                    startTimer(expiry);
                 } else {
-                    localStorage.removeItem('lockout_expiry');
-                    document.getElementById('lockoutScreen').style.display = 'none';
-                    failCount = 0;
+                    localStorage.removeItem('lock_expiry');
                 }
             }
         }
 
-        function startGlobalTimer(expiry) {
-            const timerDisplay = document.getElementById('fullTimer');
-            
+        function startTimer(expiry) {
+            const timerDiv = document.getElementById('countdown');
             const interval = setInterval(() => {
                 const now = new Date().getTime();
                 const diff = expiry - now;
@@ -255,15 +229,14 @@
                     return;
                 }
 
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                const h = Math.floor(diff / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
 
-                timerDisplay.innerText = 
-                    (hours < 10 ? "0" : "") + hours + ":" + 
-                    (minutes < 10 ? "0" : "") + minutes + ":" + 
-                    (seconds < 10 ? "0" : "") + seconds;
-
+                timerDiv.innerText = 
+                    (h < 10 ? "0" : "") + h + ":" + 
+                    (m < 10 ? "0" : "") + m + ":" + 
+                    (s < 10 ? "0" : "") + s;
             }, 1000);
         }
     </script>
