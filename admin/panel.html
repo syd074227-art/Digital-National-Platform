@@ -2,249 +2,154 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة الأنظمة الإدارية | النسخة المتكاملة</title>
+    <title>بوابة الإدارة | هيئة KR الرقمية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-purple: #7b61ff;
-            --bg-deep: #050510;
-            --glass: rgba(255, 255, 255, 0.03);
-            --danger: #ff4d4d;
-            --success: #00ff88;
-            --sidebar-width: 280px;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg-deep); color: white; height: 100vh; display: flex; overflow: hidden; background-image: radial-gradient(circle at 20% 30%, #1a1a3a 0%, #050510 100%); }
-
-        /* Navigation */
-        .mobile-nav-toggle { display: none; position: fixed; top: 20px; right: 20px; z-index: 1001; background: var(--glass); padding: 10px; border-radius: 12px; cursor: pointer; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        .sidebar { width: var(--sidebar-width); background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(25px); border-left: 1px solid rgba(255, 255, 255, 0.05); padding: 40px 20px; display: flex; flex-direction: column; transition: 0.4s; z-index: 1000; }
-        .sidebar-brand { text-align: center; margin-bottom: 40px; }
-        .sidebar-brand i { font-size: 40px; color: var(--primary-purple); }
-        .nav-link { padding: 14px 18px; border-radius: 15px; cursor: pointer; display: flex; align-items: center; gap: 15px; color: #888; transition: 0.3s; margin-bottom: 8px; }
-        .nav-link:hover, .nav-link.active { background: rgba(123, 97, 255, 0.1); color: white; border-right: 3px solid var(--primary-purple); }
-
-        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
-        .page-section { display: none; animation: fadeIn 0.4s ease; }
-        .active-section { display: block; }
-
-        /* Dashboard Cards */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .stat-card { background: var(--glass); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); position: relative; overflow: hidden; }
-        .stat-card h3 { font-size: 28px; margin-bottom: 5px; color: var(--primary-purple); }
-        .stat-card p { font-size: 13px; color: #aaa; }
-        .stat-card i { position: absolute; left: -10px; bottom: -10px; font-size: 60px; opacity: 0.05; }
-
-        /* Tables & Lists */
-        .glass-card { background: var(--glass); padding: 25px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 25px; }
-        .table-responsive { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; text-align: right; }
-        th { padding: 15px; color: var(--primary-purple); border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
-        td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.02); font-size: 14px; }
-
-        /* Actions */
-        .btn-status { padding: 6px 12px; border-radius: 8px; border: none; cursor: pointer; font-size: 12px; transition: 0.3s; }
-        .btn-approve { background: rgba(0, 255, 136, 0.1); color: var(--success); }
-        .btn-reject { background: rgba(255, 77, 77, 0.1); color: var(--danger); }
-
-        input, select, textarea { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; margin-top: 10px; outline: none; }
+        :root { --gold: #b8860b; --primary: #1e3a8a; --bg: #05050a; }
+        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; display: flex; margin: 0; height: 100vh; }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 992px) { .mobile-nav-toggle { display: block; } .sidebar { position: fixed; right: -100%; height: 100%; } .sidebar.open { right: 0; } }
+        .sidebar { width: 280px; background: rgba(255,255,255,0.02); border-left: 1px solid rgba(184,134,11,0.2); padding: 30px; }
+        .nav-item { padding: 15px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #888; transition: 0.3s; margin-bottom: 5px; }
+        .nav-item.active { background: var(--primary); color: white; border: 1px solid var(--gold); }
+        
+        .main { flex: 1; padding: 40px; overflow-y: auto; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+        .card { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border-bottom: 3px solid var(--gold); text-align: center; }
+        .card h2 { font-size: 32px; color: var(--gold); margin: 10px 0; }
+        
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.02); border-radius: 15px; overflow: hidden; }
+        th { background: var(--primary); padding: 18px; color: var(--gold); text-align: right; }
+        td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        
+        .btn-ok { background: #059669; color: white; padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; }
+        .btn-no { background: #dc2626; color: white; padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; }
+        
+        #notify-badge { background: red; color: white; padding: 2px 7px; border-radius: 50%; font-size: 11px; margin-right: auto; }
     </style>
 </head>
 <body>
 
-    <div class="mobile-nav-toggle" onclick="toggleSidebar()"><i class="fas fa-bars" style="color: var(--primary-purple); font-size: 24px;"></i></div>
-
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-brand"><i class="fas fa-shield-check"></i><h2 style="margin-top:15px; font-size: 16px;">الأنظمة الإدارية</h2></div>
-        <nav class="nav-menu">
-            <div class="nav-link active" onclick="showPage('home', this)"><i class="fas fa-chart-line"></i> الرئيسية</div>
-            <div id="req-notify" class="nav-link" onclick="showPage('requests', this)"><i class="fas fa-bell"></i> طلبات التفعيل</div>
-            <div class="nav-link" onclick="showPage('renew-list', this)"><i class="fas fa-history"></i> سجل التجديدات</div>
-            <div class="nav-link" onclick="showPage('ban-list', this)"><i class="fas fa-user-slash"></i> قائمة المحظورين</div>
-            <div class="nav-link" onclick="showPage('tools', this)"><i class="fas fa-wrench"></i> أدوات الإدارة</div>
-        </nav>
-        <div class="nav-link" style="color: var(--danger); margin-top: auto;" onclick="logout()"><i class="fas fa-power-off"></i> تسجيل الخروج</div>
+    <div class="sidebar">
+        <div style="text-align:center; margin-bottom:40px;">
+            <i class="fas fa-shield-alt" style="font-size:40px; color:var(--gold);"></i>
+            <h3 style="margin-top:10px;">نظام الرقابة</h3>
+        </div>
+        <div class="nav-item active" onclick="show('h')"><i class="fas fa-chart-line"></i> الإحصائيات</div>
+        <div class="nav-item" onclick="show('r')">
+            <i class="fas fa-id-card"></i> طلبات التفعيل 
+            <span id="notify-badge" style="display:none">0</span>
+        </div>
+        <div class="nav-item" onclick="show('b')"><i class="fas fa-user-slash"></i> المحظورين</div>
     </div>
 
-    <div class="main-content">
-        <div id="home" class="page-section active-section">
-            <h1 style="margin-bottom: 30px;">نظرة عامة على النظام</h1>
-            <div class="stats-grid">
-                <div class="stat-card"><h3>0</h3><p id="stat-today">تفعيلات اليوم</p><i class="fas fa-user-check"></i></div>
-                <div class="stat-card"><h3>0</h3><p id="stat-pending">طلبات معلقة</p><i class="fas fa-clock"></i></div>
-                <div class="stat-card"><h3>0</h3><p id="stat-renewed">هويات مجددة</p><i class="fas fa-sync"></i></div>
-                <div class="stat-card" style="border-color: var(--danger);"><h3>0</h3><p id="stat-banned" style="color:var(--danger)">الحسابات المحظورة</p><i class="fas fa-ban"></i></div>
-            </div>
-
-            <div class="glass-card">
-                <h3>آخر النشاطات</h3>
-                <div class="table-responsive">
-                    <table id="recentLogs">
-                        <thead><tr><th>العملية</th><th>المستخدم</th><th>التاريخ</th></tr></thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+    <div class="main">
+        <div id="h-sec">
+            <h1>ملخص النظام اللحظي</h1>
+            <div class="stats">
+                <div class="card"><h4>طلبات بانتظارك</h4><h2 id="s-pending">0</h2></div>
+                <div class="card"><h4>إجمالي المفعلين</h4><h2 id="s-active">0</h2></div>
+                <div class="card"><h4>قائمة الحظر</h4><h2 id="s-banned">0</h2></div>
             </div>
         </div>
 
-        <div id="requests" class="page-section">
-            <div class="glass-card">
-                <h2>طلبات التفعيل الواردة</h2>
-                <div class="table-responsive">
-                    <table>
-                        <thead><tr><th>الهوية</th><th>الاسم</th><th>الوظيفة</th><th>الإجراء</th></tr></thead>
-                        <tbody id="reqTable"></tbody>
-                    </table>
-                </div>
-            </div>
+        <div id="r-sec" style="display:none">
+            <h1>طلبات التفعيل الواردة</h1>
+            <table>
+                <thead><tr><th>رقم الطلب</th><th>الاسم الكامل</th><th>الهوية (ID)</th><th>القطاع والمنصب</th><th>الإجراء</th></tr></thead>
+                <tbody id="reqBody"></tbody>
+            </table>
         </div>
-
-        <div id="renew-list" class="page-section">
-            <div class="glass-card">
-                <h2>قائمة الهويات المجددة</h2>
-                <div class="table-responsive">
-                    <table>
-                        <thead><tr><th>الاسم</th><th>الهوية القديمة</th><th>الهوية الجديدة</th><th>تاريخ التجديد</th></tr></thead>
-                        <tbody id="renewTable"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="ban-list" class="page-section">
-            <div class="glass-card">
-                <h2 style="color: var(--danger);">قائمة الحسابات المحظورة</h2>
-                <div class="table-responsive">
-                    <table>
-                        <thead><tr><th>الهوية</th><th>السبب</th><th>نوع الحظر</th><th>الإجراء</th></tr></thead>
-                        <tbody id="banTable"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="tools" class="page-section">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="glass-card">
-                    <h3>تجديد هوية</h3>
-                    <input type="number" id="oldId" placeholder="رقم الهوية القديم">
-                    <input type="number" id="newId" placeholder="رقم الهوية الجديد">
-                    <button class="btn-status btn-approve" style="width:100%; padding:15px; margin-top:10px;" onclick="runRenew()">تنفيذ التجديد</button>
-                </div>
-                <div class="glass-card">
-                    <h3>إجراء حظر</h3>
-                    <input type="number" id="banId" placeholder="رقم الهوية">
-                    <textarea id="banReason" placeholder="سبب الحظر..."></textarea>
-                    <button class="btn-status btn-reject" style="width:100%; padding:15px; margin-top:10px;" onclick="runBan()">تنفيذ الحظر</button>
-                </div>
-            </div>
+        
+        <div id="b-sec" style="display:none">
+            <h1>إدارة المحظورين</h1>
+            <table>
+                <thead><tr><th>الهوية (ID)</th><th>سبب الحظر</th><th>التاريخ</th><th>الإجراء</th></tr></thead>
+                <tbody id="banBody"></tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-
-        function showPage(id, el) {
-            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active-section'));
-            document.getElementById(id).classList.add('active-section');
-            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-            el.classList.add('active');
-            if(window.innerWidth <= 992) toggleSidebar();
-            refreshData();
+        function show(sec) {
+            ['h-sec', 'r-sec', 'b-sec'].forEach(s => document.getElementById(s).style.display = 'none');
+            document.getElementById(sec + '-sec').style.display = 'block';
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            updateData();
         }
 
-        // تحديث البيانات وربطها بملف التقديم
-        function refreshData() {
+        function updateData() {
             const apps = JSON.parse(localStorage.getItem('user_applications') || '[]');
-            const renewals = JSON.parse(localStorage.getItem('admin_renewals') || '[]');
             const bans = JSON.parse(localStorage.getItem('admin_bans') || '[]');
             
-            // تحديث الإحصائيات في الرئيسية
             const pending = apps.filter(a => a.status === 'pending');
-            const todayCount = apps.filter(a => a.date === new Date().toLocaleDateString('ar-SA') && a.status === 'approved').length;
+            const activeCount = apps.filter(a => a.status === 'approved').length;
 
-            document.querySelector('#stat-pending').previousElementSibling.innerText = pending.length;
-            document.querySelector('#stat-today').previousElementSibling.innerText = todayCount;
-            document.querySelector('#stat-renewed').previousElementSibling.innerText = renewals.length;
-            document.querySelector('#stat-banned').previousElementSibling.innerText = bans.length;
-
-            // ملء جداول التفعيل
-            const reqTable = document.getElementById('reqTable');
-            reqTable.innerHTML = '';
-            pending.forEach(a => {
-                reqTable.innerHTML += `<tr><td>#${a.gameId}</td><td>${a.name}</td><td>${a.jobName}</td>
-                <td><button onclick="approve('${a.id}')" class="btn-status btn-approve">تفعيل</button></td></tr>`;
-            });
-
-            // ملء سجل التجديد
-            const renewTable = document.getElementById('renewTable');
-            renewTable.innerHTML = '';
-            renewals.forEach(r => {
-                renewTable.innerHTML += `<tr><td>${r.name}</td><td>#${r.old}</td><td>#${r.new}</td><td>${r.date}</td></tr>`;
-            });
-
-            // ملء سجل المحظورين
-            const banTable = document.getElementById('banTable');
-            banTable.innerHTML = '';
-            bans.forEach((b, i) => {
-                banTable.innerHTML += `<tr><td>#${b.id}</td><td>${b.reason}</td><td>دائم</td>
-                <td><button onclick="unban(${i})" class="btn-status btn-approve">فك الحظر</button></td></tr>`;
-            });
-        }
-
-        // تفعيل طلب
-        function approve(id) {
-            let apps = JSON.parse(localStorage.getItem('user_applications') || '[]');
-            const i = apps.findIndex(a => a.id == id);
-            apps[i].status = 'approved';
-            apps[i].date = new Date().toLocaleDateString('ar-SA');
-            localStorage.setItem('user_applications', JSON.stringify(apps));
-            refreshData();
-        }
-
-        // تجديد هوية
-        function runRenew() {
-            const oldId = document.getElementById('oldId').value;
-            const newId = document.getElementById('newId').value;
-            let apps = JSON.parse(localStorage.getItem('user_applications') || '[]');
-            let renewals = JSON.parse(localStorage.getItem('admin_renewals') || '[]');
+            // تحديث الأرقام
+            document.getElementById('s-pending').innerText = pending.length;
+            document.getElementById('s-active').innerText = activeCount;
+            document.getElementById('s-banned').innerText = bans.length;
             
-            const idx = apps.findIndex(a => a.gameId == oldId);
-            if(idx !== -1 && newId) {
-                const info = { name: apps[idx].name, old: oldId, new: newId, date: new Date().toLocaleString('ar-SA') };
-                apps[idx].gameId = newId;
-                renewals.push(info);
+            const badge = document.getElementById('notify-badge');
+            if(pending.length > 0) { badge.innerText = pending.length; badge.style.display = 'block'; }
+            else { badge.style.display = 'none'; }
+
+            // جدول الطلبات
+            const rb = document.getElementById('reqBody'); rb.innerHTML = '';
+            pending.forEach(a => {
+                rb.innerHTML += `<tr>
+                    <td>${a.id}</td>
+                    <td>${a.name}</td>
+                    <td>#${a.gameId}</td>
+                    <td>${a.jobName}</td>
+                    <td>
+                        <button class="btn-ok" onclick="action('${a.id}', 'approved')">تفعيل</button>
+                        <button class="btn-no" onclick="banUser('${a.gameId}')">حظر</button>
+                    </td>
+                </tr>`;
+            });
+
+            // جدول الحظر
+            const bb = document.getElementById('banBody'); bb.innerHTML = '';
+            bans.forEach((b, i) => {
+                bb.innerHTML += `<tr><td>#${b.id}</td><td>${b.reason}</td><td>${b.date}</td>
+                <td><button class="btn-ok" onclick="unban(${i})">فك الحظر</button></td></tr>`;
+            });
+        }
+
+        function action(id, status) {
+            let apps = JSON.parse(localStorage.getItem('user_applications') || '[]');
+            const i = apps.findIndex(a => a.id === id);
+            if(i !== -1) {
+                apps[i].status = status;
                 localStorage.setItem('user_applications', JSON.stringify(apps));
-                localStorage.setItem('admin_renewals', JSON.stringify(renewals));
-                alert("تم التجديد بنجاح");
-                refreshData();
+                updateData();
             }
         }
 
-        // تنفيذ حظر
-        function runBan() {
-            const id = document.getElementById('banId').value;
-            const reason = document.getElementById('banReason').value;
+        function banUser(gameId) {
+            const reason = prompt("سبب الحظر:");
+            if(!reason) return;
             let bans = JSON.parse(localStorage.getItem('admin_bans') || '[]');
             let apps = JSON.parse(localStorage.getItem('user_applications') || '[]');
             
-            const i = apps.findIndex(a => a.gameId == id);
-            if(i !== -1) {
-                bans.push({ id: id, reason: reason });
-                apps.splice(i, 1); // حذفه من القائمة النشطة
-                localStorage.setItem('admin_bans', JSON.stringify(bans));
-                localStorage.setItem('user_applications', JSON.stringify(apps));
-                refreshData();
-            }
+            bans.push({ id: gameId, reason: reason, date: new Date().toLocaleDateString('ar-SA') });
+            apps = apps.filter(a => a.gameId !== gameId); // حذف الطلبات المتعلقة به
+            
+            localStorage.setItem('admin_bans', JSON.stringify(bans));
+            localStorage.setItem('user_applications', JSON.stringify(apps));
+            updateData();
         }
 
-        function logout() { localStorage.removeItem('admin_session'); window.location.href='login.html'; }
-        window.onload = refreshData;
+        function unban(index) {
+            let bans = JSON.parse(localStorage.getItem('admin_bans') || '[]');
+            bans.splice(index, 1);
+            localStorage.setItem('admin_bans', JSON.stringify(bans));
+            updateData();
+        }
+
+        // تحديث آلي كل 5 ثوانٍ لجلب الطلبات الجديدة فوراً
+        setInterval(updateData, 5000);
+        window.onload = updateData;
     </script>
 </body>
 </html>
