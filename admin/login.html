@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الإدارة | تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #6366f1; --dark: #0f172a; }
+        body {
+            margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at center, #1e1b4b, #0f172a);
+            font-family: 'Segoe UI', sans-serif; color: white;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+            padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);
+            width: 100%; max-width: 400px; text-align: center;
+        }
+        .logo-icon { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; text-align: right; }
+        input {
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.2); color: white; outline: none; box-sizing: border-box;
+        }
+        input:focus { border-color: var(--primary); }
+        .login-btn {
+            width: 100%; padding: 12px; border: none; border-radius: 10px;
+            background: var(--primary); color: white; font-weight: bold; cursor: pointer;
+        }
+        .login-btn:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo-icon"><i class="fas fa-user-shield"></i></div>
+        <h2>دخول المسؤول</h2>
+        <div class="form-group">
+            <label>اسم المستخدم</label>
+            <input type="text" id="username" placeholder="admin">
+        </div>
+        <div class="form-group">
+            <label>كلمة المرور</label>
+            <input type="password" id="password" placeholder="******">
+        </div>
+        <button class="login-btn" onclick="handleLogin()">تسجيل الدخول</button>
+    </div>
+
+    <script>
+        function handleLogin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if(user === "admin" && pass === "123456") {
+                localStorage.setItem('admin_session', 'active');
+                window.location.href = 'panel.html';
+            } else {
+                alert("بيانات الدخول غير صحيحة!");
+            }
+        }
+    </script>
+</body>
+</html>
