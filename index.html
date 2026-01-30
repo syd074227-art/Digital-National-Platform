@@ -3,146 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محاكاة واجهة توكلنا</title>
+    <title>لوحة التحكم | KR Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-green: #006341;
-            --light-bg: #f4f7f6;
-            --white: #ffffff;
-            --text-gray: #666;
+            --royal-blue: #1e3a8a;
+            --gold-leaf: #d4af37;
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --neon-glow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-bg);
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
+            color: #fff;
             margin: 0;
-            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* الهيدر العلوي */
-        .header {
-            background-color: var(--primary-green);
-            color: var(--white);
-            padding: 20px;
-            text-align: center;
-            border-bottom-left-radius: 25px;
-            border-bottom-right-radius: 25px;
+        /* تحريك الخلفية */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.05;
+            z-index: -1;
         }
 
-        /* بطاقة الهوية الرقمية */
-        .id-card {
-            background: var(--white);
-            margin: -30px 20px 20px;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        /* الهيدر الملكي */
+        .top-header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .user-profile {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
+        .avatar-container {
+            position: relative;
+            width: 65px;
+            height: 65px;
+        }
+
         .user-avatar {
-            width: 60px;
-            height: 60px;
-            background-color: #ddd;
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            border: 2px solid var(--gold-leaf);
+            object-fit: cover;
+            box-shadow: var(--neon-glow);
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: -2px;
+            left: -2px;
+            width: 15px;
+            height: 15px;
+            background: #10b981;
+            border: 3px solid #0f172a;
             border-radius: 50%;
         }
 
-        /* شبكة الخدمات */
+        /* بطاقة الهوية الذكية */
+        .id-premium-card {
+            background: linear-gradient(135deg, rgba(30,58,138,0.9), rgba(15,23,42,0.9));
+            margin: 20px;
+            border-radius: 25px;
+            padding: 30px;
+            border: 1px solid var(--gold-leaf);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .id-premium-card::before {
+            content: "KR DIGITAL ID";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 80px;
+            color: rgba(255,255,255,0.03);
+            font-weight: bold;
+            transform: rotate(-15deg);
+        }
+
+        /* شبكة الخدمات الفخمة */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
             gap: 15px;
             padding: 20px;
         }
 
-        .service-item {
-            background: var(--white);
-            padding: 15px;
-            border-radius: 12px;
+        .service-card-luxury {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px 10px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
 
-        .service-item:active {
-            transform: scale(0.95);
+        .service-card-luxury:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold-leaf);
+            transform: translateY(-10px);
+            box-shadow: var(--neon-glow);
         }
 
-        .service-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
+        .service-card-luxury i {
+            font-size: 30px;
+            background: linear-gradient(to bottom, #fff, var(--gold-leaf));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .service-card-luxury span {
             display: block;
-        }
-
-        .service-label {
-            font-size: 12px;
-            color: var(--text-gray);
+            font-size: 13px;
             font-weight: bold;
+            color: #e2e8f0;
         }
 
-        /* القائمة السفلية */
-        .nav-bottom {
+        /* شريط سفلي بتصميم عائم */
+        .bottom-nav-floating {
             position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: var(--white);
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 15px;
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            border-top: 1px solid #eee;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-item-luxury {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+        .nav-item-luxury.active {
+            color: var(--gold-leaf);
+            text-shadow: var(--neon-glow);
+        }
+
+        /* تأثيرات التحميل (Skeleton) */
+        .loading-shimmer {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h2>توكلنا</h2>
-        <p>مرحباً بك، فلان بن فلان</p>
-    </div>
+    <header class="top-header">
+        <div class="user-profile">
+            <div class="avatar-container">
+                <img src="https://via.placeholder.com/150" id="userImg" class="user-avatar">
+                <div class="status-dot"></div>
+            </div>
+            <div>
+                <div style="font-weight: bold; font-size: 1.1rem;" id="userName">جاري التحميل...</div>
+                <div style="font-size: 0.8rem; color: var(--gold-leaf);"><i class="fas fa-crown"></i> عضوية ملكية</div>
+            </div>
+        </div>
+        <div class="notification-icon">
+            <i class="fas fa-bell" style="font-size: 1.5rem; color: var(--gold-leaf);"></i>
+        </div>
+    </header>
 
-    <div class="id-card">
-        <div class="user-avatar"></div>
-        <div>
-            <div style="font-weight: bold; color: var(--primary-green);">محصن</div>
-            <div style="font-size: 12px; color: var(--text-gray);">آخر تحديث: الآن</div>
+    <main>
+        <div class="id-premium-card">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <div style="color: var(--gold-leaf); font-size: 0.9rem; margin-bottom: 5px;">رقم الهوية الرقمية</div>
+                    <div style="font-size: 1.4rem; letter-spacing: 2px; font-weight: bold;" id="userId">1234567890</div>
+                </div>
+                <i class="fas fa-qrcode" style="font-size: 3rem; opacity: 0.8;"></i>
+            </div>
+            <div style="margin-top: 30px; display: flex; gap: 20px;">
+                <div>
+                    <div style="font-size: 0.7rem; opacity: 0.6;">تاريخ الصدور</div>
+                    <div style="font-size: 0.9rem;">2026/01/30</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.7rem; opacity: 0.6;">الحالة الصحية</div>
+                    <div style="font-size: 0.9rem; color: #10b981;">● محصن نشط</div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div style="padding-right: 20px; font-weight: bold; color: var(--primary-green);">الخدمات المميزة</div>
+        <h3 style="padding: 0 25px; margin-top: 30px; font-size: 1.2rem;">الخدمات الرقمية</h3>
+        
+        <div class="services-grid">
+            <div class="service-card-luxury">
+                <i class="fas fa-shield-heart"></i>
+                <span>الصحة</span>
+            </div>
+            <div class="service-card-luxury">
+                <i class="fas fa-wallet"></i>
+                <span>المحفظة</span>
+            </div>
+            <div class="service-card-luxury">
+                <i class="fas fa-file-signature"></i>
+                <span>التراخيص</span>
+            </div>
+            <div class="service-card-luxury">
+                <i class="fas fa-landmark"></i>
+                <span>العقارات</span>
+            </div>
+            <div class="service-card-luxury">
+                <i class="fas fa-user-court"></i>
+                <span>العدل</span>
+            </div>
+            <div class="service-card-luxury">
+                <i class="fas fa-graduation-cap"></i>
+                <span>التعليم</span>
+            </div>
+        </div>
+    </main>
 
-    <div class="services-grid">
-        <div class="service-item">
-            <span class="service-icon">📄</span>
-            <span class="service-label">المحفظة الرقمية</span>
-        </div>
-        <div class="service-item">
-            <span class="service-icon">📅</span>
-            <span class="service-label">المواعيد</span>
-        </div>
-        <div class="service-item">
-            <span class="service-icon">🚗</span>
-            <span class="service-label">المركبات</span>
-        </div>
-        <div class="service-item">
-            <span class="service-icon">🕋</span>
-            <span class="service-label">بوابة المناسك</span>
-        </div>
-        <div class="service-item">
-            <span class="service-icon">🎓</span>
-            <span class="service-label">النتائج الدراسية</span>
-        </div>
-        <div class="service-item">
-            <span class="service-icon">📜</span>
-            <span class="service-label">الصكوك</span>
-        </div>
-    </div>
-
-    <nav class="nav-bottom">
-        <span>🏠 الرئيسية</span>
-        <span>📁 الخدمات</span>
-        <span>⚙️ الإعدادات</span>
+    <nav class="bottom-nav-floating">
+        <a href="#" class="nav-item-luxury active"><i class="fas fa-home"></i></a>
+        <a href="#" class="nav-item-luxury"><i class="fas fa-grid-2"></i></a>
+        <a href="#" class="nav-item-luxury"><i class="fas fa-qrcode"></i></a>
+        <a href="#" class="nav-item-luxury"><i class="fas fa-user-circle"></i></a>
     </nav>
 
+    <script>
+        // إضافة بعض التفاعل البرمجي
+        document.querySelectorAll('.service-card-luxury').forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = "scale(0.9)";
+                setTimeout(() => card.style.transform = "translateY(-10px)", 100);
+            });
+        });
+    </script>
 </body>
 </html>
