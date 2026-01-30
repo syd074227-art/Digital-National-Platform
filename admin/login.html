@@ -3,229 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة النفاذ الإداري | للنظم الرقمية</title>
+    <title>بوابة النفاذ السيادي | المركز الرقمي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
-            --gov-blue: #0a192f;
-            --accent-gold: #c5a059;
-            --neon-blue: #64ffda;
-            --glass: rgba(255, 255, 255, 0.03);
-            --error-red: #ff4d4d;
+            --primary-gold: #c5a059;
+            --gov-blue: #020617;
+            --neon-alert: #ff003c;
+            --cyber-cyan: #00f3ff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
         body {
-            background-color: var(--gov-blue);
+            background: var(--gov-blue);
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            perspective: 1000px;
+            perspective: 1500px;
         }
 
-        /* خلفية الشبكة الرقمية 3D */
-        .bg-overlay {
+        /* خلفية مصفوفة البيانات */
+        .matrix-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, #020617 0%, #0f172a 100%);
+            background: 
+                radial-gradient(circle at center, rgba(10, 25, 47, 0) 0%, #020617 100%),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
             z-index: -1;
         }
 
-        .grid-bg {
-            position: absolute;
-            width: 200%; height: 200%;
-            background-image: 
-                linear-gradient(rgba(100, 255, 218, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(100, 255, 218, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: rotateX(60deg) translateY(-50%);
-            animation: moveGrid 20s linear infinite;
-        }
-
-        @keyframes moveGrid {
-            0% { transform: rotateX(60deg) translateY(-50%); }
-            100% { transform: rotateX(60deg) translateY(0%); }
-        }
-
-        /* بطاقة تسجيل الدخول 3D */
-        .login-card {
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 50px 40px;
-            border-radius: 30px;
-            width: 450px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.02);
+        /* إطار النظام الفخم */
+        .system-frame {
             position: relative;
-            transform-style: preserve-3d;
-            animation: cardFloat 6s ease-in-out infinite;
+            width: 480px;
+            padding: 60px 40px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid var(--primary-gold);
+            border-radius: 5px;
+            box-shadow: 0 0 50px rgba(197, 160, 89, 0.2), inset 0 0 30px rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
+            text-align: center;
+            clip-path: polygon(10% 0, 90% 0, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0 90%, 0 10%);
         }
 
-        @keyframes cardFloat {
-            0%, 100% { transform: translateY(0) rotateY(0deg); }
-            50% { transform: translateY(-15px) rotateY(2deg); }
+        /* شريط المسح الضوئي */
+        .scanner-line {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--primary-gold);
+            box-shadow: 0 0 15px var(--primary-gold);
+            animation: scan 4s linear infinite;
+            opacity: 0.5;
         }
 
-        .logo-container {
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        .header-title {
+            color: var(--primary-gold);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .input-wrapper {
             position: relative;
             margin-bottom: 30px;
         }
 
-        .logo-3d {
-            font-size: 60px;
-            color: var(--accent-gold);
-            filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.3));
-            animation: pulseGold 3s infinite;
-        }
-
-        @keyframes pulseGold {
-            0% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.1); filter: brightness(1.3); }
-            100% { transform: scale(1); filter: brightness(1); }
-        }
-
-        h2 {
-            color: white;
-            letter-spacing: 2px;
-            font-weight: 300;
-            margin-bottom: 40px;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .input-box {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .input-box i {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--accent-gold);
-            opacity: 0.7;
-        }
-
         input {
             width: 100%;
-            padding: 15px 50px 15px 20px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: white;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 15px 45px;
+            color: #fff;
             font-size: 16px;
-            transition: 0.4s;
+            transition: 0.3s;
             outline: none;
+            border-radius: 4px;
         }
 
         input:focus {
-            border-color: var(--accent-gold);
-            background: rgba(0,0,0,0.5);
-            box-shadow: 0 0 20px rgba(197, 160, 89, 0.1);
+            border-color: var(--cyber-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
         }
 
-        .login-btn {
+        .input-wrapper i {
+            position: absolute;
+            right: 15px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-gold);
+        }
+
+        .login-button {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #c5a059 0%, #8e6d2a 100%);
-            border: none;
-            border-radius: 12px;
-            color: white;
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
             font-weight: bold;
-            font-size: 18px;
             cursor: pointer;
             transition: 0.4s;
-            text-transform: uppercase;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        .login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(197, 160, 89, 0.3);
+        .login-button:hover:not(:disabled) {
+            background: var(--primary-gold);
+            color: #000;
+            box-shadow: 0 0 30px var(--primary-gold);
         }
 
-        /* تأثير الخطأ الفخم */
-        .error-shake {
-            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-            border-color: var(--error-red) !important;
+        .login-button:disabled {
+            border-color: #444;
+            color: #444;
+            cursor: not-allowed;
         }
 
-        @keyframes shake {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
-        }
-
-        .error-msg {
-            color: var(--error-red);
-            font-size: 13px;
-            margin-top: 15px;
+        /* نظام التنبيه بالحظر */
+        #lockout-msg {
             display: none;
-            font-weight: bold;
+            color: var(--neon-alert);
+            margin-top: 20px;
+            font-size: 14px;
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* تأثير اهتزاز الشاشة */
+        .shake { animation: screenShake 0.4s ease-in-out; }
+        @keyframes screenShake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
         }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
-    <div class="bg-overlay">
-        <div class="grid-bg"></div>
-    </div>
+    <div class="matrix-bg"></div>
 
-    <div class="login-card" id="card">
-        <div class="logo-container">
-            <i class="fas fa-shield-halved logo-3d"></i>
-        </div>
-        <h2>بوابة الأنظمة الإدارية</h2>
+    <div class="system-frame" id="loginBox">
+        <div class="scanner-line"></div>
         
-        <div class="input-box">
-            <i class="fas fa-user-tie"></i>
-            <input type="text" id="username" placeholder="اسم المستخدم (Admin)">
-        </div>
-
-        <div class="input-box">
-            <i class="fas fa-key"></i>
-            <input type="password" id="password" placeholder="كلمة المرور">
-        </div>
-
-        <button class="login-btn" onclick="validateLogin()">دخول النظام</button>
+        <div class="header-title">نظام التحكم المركزي</div>
         
-        <div class="error-msg" id="error">تنبيه: بيانات الدخول غير مصرح بها في سجلاتنا</div>
+        <div class="input-wrapper">
+            <i class="fas fa-fingerprint"></i>
+            <input type="text" id="userField" placeholder="معرف المسؤول">
+        </div>
+
+        <div class="input-wrapper">
+            <i class="fas fa-shield-alt"></i>
+            <input type="password" id="passField" placeholder="رمز التشفير">
+        </div>
+
+        <button id="loginBtn" class="login-button" onclick="attemptLogin()">
+            تحقق من الهوية
+        </button>
+
+        <div id="lockout-msg">تم اكتشاف محاولة اختراق! <br> النظام مقفل لـ <span id="timer">15</span> ثانية</div>
     </div>
 
     <script>
-        function validateLogin() {
-            const user = document.getElementById('username');
-            const pass = document.getElementById('password');
-            const error = document.getElementById('error');
-            const card = document.getElementById('card');
+        let attempts = 0;
+        let isLocked = false;
 
-            // بيانات الدخول
-            if(user.value === "admin" && pass.value === "123456") {
-                card.style.transition = "2s";
-                card.style.transform = "translateZ(500px) rotateY(90deg)";
-                card.style.opacity = "0";
-                
+        function attemptLogin() {
+            if (isLocked) return;
+
+            const user = document.getElementById('userField').value;
+            const pass = document.getElementById('passField').value;
+            const btn = document.getElementById('loginBtn');
+            const msg = document.getElementById('lockout-msg');
+            const body = document.getElementById('mainBody');
+
+            if (user === "admin" && pass === "123456") {
+                // دخول ناجح
+                btn.innerText = "جاري فتح البوابة...";
                 setTimeout(() => {
                     localStorage.setItem('admin_session', 'active');
                     window.location.href = 'panel.html';
                 }, 1000);
             } else {
-                // تفعيل أنيميشن الخطأ
-                card.classList.add('error-shake');
-                error.style.display = 'block';
-                
-                // تنظيف بعد ثانية
-                setTimeout(() => {
-                    card.classList.remove('error-shake');
-                }, 500);
+                // دخول خاطئ
+                attempts++;
+                body.classList.add('shake');
+                setTimeout(() => body.classList.remove('shake'), 400);
+
+                if (attempts >= 3) {
+                    startLockout();
+                } else {
+                    alert(`بيانات خاطئة! محاولة رقم ${attempts} من 3`);
+                }
             }
+        }
+
+        function startLockout() {
+            isLocked = true;
+            attempts = 0;
+            const btn = document.getElementById('loginBtn');
+            const msg = document.getElementById('lockout-msg');
+            const timerSpan = document.getElementById('timer');
+            let timeLeft = 15;
+
+            btn.disabled = true;
+            msg.style.display = 'block';
+
+            const countdown = setInterval(() => {
+                timeLeft--;
+                timerSpan.innerText = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    isLocked = false;
+                    btn.disabled = false;
+                    msg.style.display = 'none';
+                    btn.innerText = "تحقق من الهوية";
+                }
+            }, 1000);
         }
     </script>
 </body>
