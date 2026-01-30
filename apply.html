@@ -3,104 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام تفعيل الهوية - هيئة KR الرقمية</title>
+    <title>بوابة الهوية الرقمية | هيئة KR</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ستايلك الأصلي الفاخر (تم اختصاره هنا للحفاظ على مساحة الكود، احتفظ بستايلك القديم كاملاً) */
-        :root { --primary: #1e3a8a; --gold: #b8860b; --dark: #0f172a; --light: #f8fafc; }
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; color: var(--light); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; padding: 20px; }
-        .container { width: 100%; max-width: 800px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .header { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); padding: 40px; text-align: center; border-bottom: 2px solid var(--gold); }
-        .content { padding: 40px; }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 10px; color: var(--gold); }
-        input, select { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; outline: none; }
-        .btn { width: 100%; padding: 20px; background: linear-gradient(135deg, #b8860b 0%, #ffd700 100%); color: #000; border: none; border-radius: 15px; font-weight: 700; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(184,134,11,0.4); }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        :root { --gold: #b8860b; --gold-light: #f1c40f; --dark: #0a0f1d; --card-bg: rgba(255, 255, 255, 0.03); --border: rgba(184, 134, 11, 0.3); --primary: #1e3a8a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: radial-gradient(circle at center, #1a2a4a 0%, #0a0f1d 100%); min-height: 100vh; color: white; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        
+        .main-container { width: 100%; max-width: 900px; background: rgba(10, 15, 29, 0.8); backdrop-filter: blur(20px); border-radius: 30px; border: 1px solid var(--border); box-shadow: 0 25px 50px rgba(0,0,0,0.5); overflow: hidden; }
+        .gov-header { background: linear-gradient(135deg, #000 0%, #1e3a8a 100%); padding: 40px; text-align: center; border-bottom: 2px solid var(--gold); position: relative; }
+        .gov-header i { font-size: 60px; color: var(--gold); margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--gold)); }
+        
+        .form-content { padding: 40px; }
+        .input-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; color: var(--gold); font-weight: bold; font-size: 14px; }
+        input, select { width: 100%; padding: 15px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 16px; transition: 0.3s; }
+        input:focus { border-color: var(--gold-light); box-shadow: 0 0 15px rgba(184, 134, 11, 0.2); outline: none; }
+        
+        .grid-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 10px; }
+        .opt-card { background: var(--card-bg); border: 1px solid var(--border); padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .opt-card.active { background: var(--gold); color: black; font-weight: bold; transform: translateY(-5px); }
+        
+        .btn-submit { width: 100%; padding: 20px; background: linear-gradient(90deg, #b8860b, #ffd700); border: none; border-radius: 15px; color: #000; font-size: 20px; font-weight: 900; cursor: pointer; transition: 0.4s; margin-top: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-submit:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(184, 134, 11, 0.4); }
+        
+        #success-screen { display: none; text-align: center; padding: 60px; }
+        .success-icon { font-size: 100px; color: #2ecc71; margin-bottom: 20px; animation: scaleUp 0.5s ease; }
+        @keyframes scaleUp { from { transform: scale(0); } to { transform: scale(1); } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <i class="fas fa-id-card-alt" style="font-size: 50px; color: var(--gold);"></i>
-            <h1 style="margin-top:15px;">نظام تفعيل الهوية الرقمي</h1>
-            <p>هيئة KR الرقمية</p>
+
+<div class="main-container">
+    <div id="form-view">
+        <div class="gov-header">
+            <i class="fas fa-shield-halved"></i>
+            <h1>منصة تفعيل الهوية الوطنية</h1>
+            <p style="opacity: 0.7;">هيئة KR الرقمية - نظام الربط الحكومي الموحد</p>
         </div>
-        
-        <div class="content" id="mainContent">
+
+        <div class="form-content">
             <div class="input-group">
-                <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                <label><i class="fas fa-user"></i> الاسم الكامل (كما هو في الهوية)</label>
                 <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي">
             </div>
-            
-            <div class="input-group">
-                <label><i class="fas fa-gamepad"></i> رقم الهوية في اللعبة (ID)</label>
-                <input type="number" id="gameId" placeholder="أدخل الرقم التعريفي">
-            </div>
-            
-            <div class="input-group">
-                <label><i class="fas fa-briefcase"></i> اختيار القطاع</label>
-                <select id="jobSector">
-                    <option value="interior">وزارة الداخلية</option>
-                    <option value="health">وزارة الصحة</option>
-                    <option value="justice">وزارة العدل</option>
-                    <option value="citizen">مواطن</option>
-                </select>
+
+            <div class="grid-options">
+                <div class="input-group">
+                    <label>رقم الهوية (ID)</label>
+                    <input type="number" id="gameId" placeholder="10 أرقام">
+                </div>
+                <div class="input-group">
+                    <label>العمر</label>
+                    <input type="number" id="age" placeholder="مثال: 20">
+                </div>
             </div>
 
-            <div class="input-group">
-                <label><i class="fas fa-award"></i> المنصب / الرتبة</label>
-                <input type="text" id="rankName" placeholder="مثال: جندي، طبيب، قاضي">
+            <label>اختيار القطاع الحكومي</label>
+            <div class="grid-options" id="sector-grid">
+                <div class="opt-card" onclick="setSector('interior', this)">وزارة الداخلية</div>
+                <div class="opt-card" onclick="setSector('health', this)">وزارة الصحة</div>
+                <div class="opt-card" onclick="setSector('justice', this)">وزارة العدل</div>
+                <div class="opt-card" onclick="setSector('citizen', this)">مواطن</div>
             </div>
 
-            <button class="btn" onclick="submitApplication()">
-                <i class="fas fa-paper-plane"></i> إرسال طلب التفعيل
-            </button>
+            <div id="rank-section" style="margin-top:25px; display:none;">
+                <label>الرتبة / المسمى الوظيفي</label>
+                <select id="rankSelect"></select>
+            </div>
+
+            <button class="btn-submit" onclick="submitToGov()">إرسال طلب التفعيل</button>
         </div>
     </div>
 
-    <script>
-        function submitApplication() {
-            const name = document.getElementById('fullName').value;
-            const id = document.getElementById('gameId').value;
-            const sector = document.getElementById('jobSector').value;
-            const rank = document.getElementById('rankName').value;
+    <div id="success-screen">
+        <i class="fas fa-check-double success-icon"></i>
+        <h1 style="color:var(--gold);">تمت المعالجة بنجاح</h1>
+        <p>تم إرسال بياناتك لمركز المعلومات الوطني. سيتم الرد عبر الإدارة فوراً.</p>
+    </div>
+</div>
 
-            if(!name || !id || !rank) {
-                alert("أكمل البيانات أولاً!");
-                return;
-            }
+<script>
+    let selectedSector = '';
+    const RANKS = {
+        interior: ['جندي', 'ملازم', 'نقيب', 'رائد', 'لواء'],
+        health: ['مسعف', 'طبيب', 'استشاري', 'مدير مستشفى'],
+        justice: ['محامي', 'قاضي', 'كاتب عدل'],
+        citizen: ['مواطن']
+    };
 
-            // البيانات بصيغة موحدة للوحة الإدارة
-            const requestData = {
-                id: 'KR-' + Date.now().toString().slice(-6),
-                name: name,
-                gameId: id,
-                jobName: getSectorName(sector) + " - " + rank,
-                status: 'pending',
-                date: new Date().toLocaleDateString('ar-SA')
-            };
+    function setSector(sector, el) {
+        selectedSector = sector;
+        document.querySelectorAll('.opt-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        
+        const rankSection = document.getElementById('rank-section');
+        const rankSelect = document.getElementById('rankSelect');
+        rankSelect.innerHTML = RANKS[sector].map(r => `<option value="${r}">${r}</option>`).join('');
+        rankSection.style.display = 'block';
+    }
 
-            // الحفظ في المستودع الموحد
-            let db = JSON.parse(localStorage.getItem('user_applications') || '[]');
-            db.push(requestData);
-            localStorage.setItem('user_applications', JSON.stringify(db));
+    function submitToGov() {
+        const name = document.getElementById('fullName').value;
+        const id = document.getElementById('gameId').value;
+        
+        if(!name || !id || !selectedSector) return alert("يرجى إكمال البيانات الحكومية!");
 
-            // تغيير واجهة الصفحة بعد النجاح
-            document.getElementById('mainContent').innerHTML = `
-                <div style="text-align:center; padding:40px;">
-                    <i class="fas fa-check-circle" style="font-size:80px; color:#059669; margin-bottom:20px;"></i>
-                    <h2 style="color:var(--gold);">تم إرسال طلبك بنجاح</h2>
-                    <p style="margin-top:15px;">رقم الطلب: ${requestData.id}</p>
-                    <p>سيتم مراجعة طلبك من قبل الإدارة فوراً.</p>
-                </div>
-            `;
-        }
+        const request = {
+            id: 'KR-' + Math.floor(Math.random() * 900000 + 100000),
+            name: name,
+            gameId: id,
+            sector: selectedSector,
+            rank: document.getElementById('rankSelect').value,
+            date: new Date().toLocaleString('ar-SA'),
+            status: 'pending'
+        };
 
-        function getSectorName(s) {
-            const map = { interior: 'الداخلية', health: 'الصحة', justice: 'العدل', citizen: 'مواطن' };
-            return map[s];
-        }
-    </script>
+        let db = JSON.parse(localStorage.getItem('KR_GOV_DB') || '[]');
+        db.unshift(request);
+        localStorage.setItem('KR_GOV_DB', JSON.stringify(db));
+
+        document.getElementById('form-view').style.display = 'none';
+        document.getElementById('success-screen').style.display = 'block';
+    }
+</script>
 </body>
 </html>
