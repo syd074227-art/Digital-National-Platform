@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم الإدارية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e3a8a; --gold: #b8860b; --dark: #0f172a;
+            --success: #059669; --danger: #dc2626; --bg: #f8fafc;
+        }
+        body { margin: 0; background: var(--bg); font-family: 'Segoe UI', sans-serif; }
+        
+        /* Navbar */
+        .header { background: var(--primary); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-logout { background: var(--danger); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+
+        /* Stats Section */
+        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; padding: 20px; }
+        .stat-box { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        .stat-box h3 { margin: 0; font-size: 24px; color: var(--primary); }
+        .stat-box p { margin: 5px 0 0; color: #64748b; }
+
+        /* Table Section */
+        .content { padding: 20px; }
+        .table-card { background: white; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f1f5f9; padding: 15px; text-align: right; color: var(--primary); }
+        td { padding: 15px; border-top: 1px solid #f1f5f9; }
+        
+        /* Badges */
+        .badge { padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: bold; }
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-approved { background: #dcfce7; color: #16a34a; }
+        .status-rejected { background: #fee2e2; color: #dc2626; }
+
+        /* Action Buttons */
+        .actions { display: flex; gap: 5px; }
+        .btn-act { border: none; width: 35px; height: 35px; border-radius: 5px; cursor: pointer; color: white; }
+        .btn-check { background: var(--success); }
+        .btn-cancel { background: var(--danger); }
+        
+        @media (max-width: 768px) { .stats-container { grid-template-columns: 1fr 1fr; } table { font-size: 12px; } }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo"><h2>لوحة الإدارة الملكية</h2></div>
+        <button class="btn-logout" onclick="logout()">تسجيل الخروج</button>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-box"><h3 id="stat-total">0</h3><p>إجمالي الطلبات</p></div>
+        <div class="stat-box"><h3 id="stat-pending" style="color:orange">0</h3><p>قيد المراجعة</p></div>
+        <div class="stat-box"><h3 id="stat-approved" style="color:green">0</h3><p>مقبولة</p></div>
+        <div class="stat-box"><h3 id="stat-rejected" style="color:red">0</h3><p>مرفوضة</p></div>
+    </div>
+
+    <div class="content">
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>رقم الطلب</th>
+                        <th>الاسم</th>
+                        <th>الهوية</th>
+                        <th>الوظيفة</th>
+                        <th>الحالة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="requestsTableBody">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 1. حماية الصفحة
+        if (localStorage.getItem('admin_session') !== 'active') { window.location.href = 'login.html'; }
+
+        // 2. إدارة البيانات
+        let allRequests = [];
+
+        function loadData() {
+            // جلب البيانات من المفتاح المشترك مع صفحة التقديم
+            const stored = localStorage.getItem('user_applications') || '[]';
+            allRequests = JSON.parse(stored);
+            renderTable();
+            updateStats();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('requestsTableBody');
+            tbody.innerHTML = '';
+
+            if(allRequests.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center">لا توجد طلبات واردة</td></tr>';
+                return;
+            }
+
+            allRequests.forEach((req, index) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>#${req.id}</td>
+                        <td>${req.name}</td>
+                        <td>${req.gameId}</td>
+                        <td>${req.jobName || 'مواطن'}</td>
+                        <td><span class="badge status-${req.status}">${getStatusAr(req.status)}</span></td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn-act btn-check" onclick="updateStatus(${index}, 'approved')"><i class="fas fa-check"></i></button>
+                                <button class="btn-act btn-cancel" onclick="updateStatus(${index}, 'rejected')"><i class="fas fa-times"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function updateStatus(index, newStatus) {
+            allRequests[index].status = newStatus;
+            localStorage.setItem('user_applications', JSON.stringify(allRequests));
+            loadData();
+        }
+
+        function updateStats() {
+            document.getElementById('stat-total').innerText = allRequests.length;
+            document.getElementById('stat-pending').innerText = allRequests.filter(r => r.status === 'pending').length;
+            document.getElementById('stat-approved').innerText = allRequests.filter(r => r.status === 'approved').length;
+            document.getElementById('stat-rejected').innerText = allRequests.filter(r => r.status === 'rejected').length;
+        }
+
+        function getStatusAr(s) {
+            const map = { 'pending': 'معلق', 'approved': 'مقبول', 'rejected': 'مرفوض' };
+            return map[s] || s;
+        }
+
+        function logout() {
+            localStorage.removeItem('admin_session');
+            window.location.href = 'login.html';
+        }
+
+        // تحميل البيانات عند البدء
+        loadData();
+        // تحديث تلقائي كل دقيقة
+        setInterval(loadData, 60000);
+    </script>
+</body>
+</html>
